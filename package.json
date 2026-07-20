@@ -1,0 +1,13 @@
+{
+  "name": "viraat-marine-local",
+  "version": "1.0.0",
+  "description": "Local offline copy of Viraat Marine",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "crawl": "node crawler.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
