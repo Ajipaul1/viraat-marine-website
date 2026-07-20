@@ -213,3 +213,15 @@
     .home-banner .item .cover{position: static;}.home-banner .item{height: auto!important;}
     .home-banner .item .cover .slider-content{padding: 0;padding-top: 100px;}
 }
+
+/* Fix Mobile Header Overlap & Transparency */
+@media(max-width:991px){
+  header, header.header-scroll-active {
+    background: #091d3e !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  .mobile-view {
+    top: 50% !important;
+    transform: translateY(-50%);
+  }
+}
