@@ -66,7 +66,7 @@ const ORIGINAL_FOOTER_HTML = `
     </div>
 `;
 
-// Common Header HTML with Vessels ▾ Nav
+// Common Header HTML
 const HEADER_HTML = `
     <header class="main_nav_header">
         <div class="container-fluid p-0">
@@ -121,7 +121,7 @@ const AMAL_CATEGORIES = [
   {
     slug: 'house-boats',
     name: 'House Boats',
-    tagline: 'Luxury Luxury Floating Villas & Kettuvallam Designs',
+    tagline: 'Luxury Floating Villas & Kettuvallam Designs',
     img: '/public/2_FrontEnd/img/vessels/pass_120.png',
     desc: 'Custom engineered luxury houseboats designed for backwater and coastal tourism. Combining traditional aesthetics with modern stability, eco-friendly solar integration, and premium interior layouts.',
     loa: '28.5 m',
@@ -186,7 +186,7 @@ const AMAL_CATEGORIES = [
   }
 ];
 
-// 1. Generate vessels.html Fleet Overview Page
+// 1. Generate vessels.html Fleet Overview Page with Unified Seamless Hero Banner
 const VESSELS_MAIN_HTML = `<!doctype html>
 <html lang="en">
 <head>
@@ -197,20 +197,18 @@ const VESSELS_MAIN_HTML = `<!doctype html>
     <link rel="icon" href="/public/2_FrontEnd/img/favico.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=3">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=3">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=4">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=4">
 </head>
 <body id="body" class="light-mode">
 
     ${HEADER_HTML}
 
-    <!-- Hero Banner -->
-    <section class="home-banner" style="padding-top:140px; background: url(/2_FrontEnd/img/banner-2.webp) center/cover; position:relative;">
-        <div class="cover" style="background: rgba(9,29,62,0.85); padding: 80px 0;">
-            <div class="container text-center">
-                <h1 style="color:#fff; font-size:48px; font-weight:800;">Viraat Marine Vessel Categories</h1>
-                <p style="color:#0fbed2; font-size:20px; max-width:800px; margin: 15px auto 0 auto;">Custom Naval Architecture, Design & Construction for Commercial and Tourist Vessels</p>
-            </div>
+    <!-- Single Unified Hero Banner -->
+    <section style="position:relative; padding-top: 180px; padding-bottom: 90px; background: linear-gradient(135deg, rgba(9, 29, 62, 0.88), rgba(5, 19, 41, 0.92)), url('/2_FrontEnd/img/banner-2.webp') center/cover no-repeat;">
+        <div class="container text-center">
+            <h1 style="color:#fff; font-size:48px; font-weight:800; margin-bottom:15px;">Viraat Marine Vessel Categories</h1>
+            <p style="color:#0fbed2; font-size:20px; max-width:800px; margin: 0 auto; font-weight:500;">Custom Naval Architecture, Design & Construction for Commercial and Tourist Vessels</p>
         </div>
     </section>
 
@@ -253,9 +251,8 @@ const VESSELS_MAIN_HTML = `<!doctype html>
 `;
 
 fs.writeFileSync(path.join(PUBLIC_DIR, 'vessels.html'), VESSELS_MAIN_HTML, 'utf8');
-console.log('Updated vessels.html with Amal categories and original footer!');
 
-// 2. Generate 6 Category Detail Pages
+// 2. Generate 6 Category Detail Pages with Unified Hero Banners
 for (const c of AMAL_CATEGORIES) {
   const CATEGORY_HTML = `<!doctype html>
 <html lang="en">
@@ -267,21 +264,19 @@ for (const c of AMAL_CATEGORIES) {
     <link rel="icon" href="/public/2_FrontEnd/img/favico.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=3">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=3">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=4">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=4">
 </head>
 <body id="body" class="light-mode">
 
     ${HEADER_HTML}
 
-    <!-- Hero Banner -->
-    <section class="home-banner" style="padding-top:140px; background: url(/2_FrontEnd/img/banner-2.webp) center/cover; position:relative;">
-        <div class="cover" style="background: rgba(9,29,62,0.85); padding: 70px 0;">
-            <div class="container">
-                <a href="/vessels" style="color:#0fbed2; text-decoration:none; font-weight:600; margin-bottom:10px; display:inline-block;">⬅ Back to All Vessel Categories</a>
-                <h1 style="color:#fff; font-size:45px; font-weight:800;">${c.name}</h1>
-                <p style="color:#0fbed2; font-size:18px;">${c.tagline}</p>
-            </div>
+    <!-- Single Unified Hero Banner -->
+    <section style="position:relative; padding-top: 180px; padding-bottom: 80px; background: linear-gradient(135deg, rgba(9, 29, 62, 0.88), rgba(5, 19, 41, 0.92)), url('/2_FrontEnd/img/banner-2.webp') center/cover no-repeat;">
+        <div class="container">
+            <a href="/vessels" style="color:#0fbed2; text-decoration:none; font-weight:600; margin-bottom:10px; display:inline-block;">⬅ Back to All Vessel Categories</a>
+            <h1 style="color:#fff; font-size:45px; font-weight:800; margin-bottom:10px;">${c.name}</h1>
+            <p style="color:#0fbed2; font-size:18px; font-weight:500;">${c.tagline}</p>
         </div>
     </section>
 
@@ -327,44 +322,6 @@ for (const c of AMAL_CATEGORIES) {
 `;
 
   fs.writeFileSync(path.join(VESSELS_DIR, c.slug + '.html'), CATEGORY_HTML, 'utf8');
-  console.log(`Created category detail page: vessels/${c.slug}.html`);
 }
 
-// Update header in all html files to show Vessels ▾ instead of Products
-function updateAllHTMLForVesselsHeader(dir) {
-  const files = fs.readdirSync(dir);
-  for (const file of files) {
-    const fullPath = path.join(dir, file);
-    if (fs.statSync(fullPath).isDirectory()) {
-      updateAllHTMLForVesselsHeader(fullPath);
-    } else if (file.endsWith('.html')) {
-      let content = fs.readFileSync(fullPath, 'utf8');
-      
-      // Update header link label from Products to Vessels
-      content = content.replace(/Products <span class="arrow-down">▾<\/span>/g, 'Vessels <span class="arrow-down">▾</span>');
-      content = content.replace(/<a href="\/vessels" class="dropdown-toggle-link">Products/g, '<a href="/vessels" class="dropdown-toggle-link">Vessels');
-      
-      // Update dropdown list items to match Amal's 6 categories
-      const oldDropdownPattern = /<ul class="sub-dropdown-menu">[\s\S]*?<\/ul>/g;
-      const newDropdownHTML = `<ul class="sub-dropdown-menu">
-                                    <li class="dropdown-header-title">Vessel Categories</li>
-                                    <li><a href="/vessels">All Vessel Fleet</a></li>
-                                    <li><a href="/vessels/house-boats">House Boats</a></li>
-                                    <li><a href="/vessels/tourist-boats">Tourist Boats</a></li>
-                                    <li><a href="/vessels/work-boats">Work Boats</a></li>
-                                    <li><a href="/vessels/tugs">Tugs</a></li>
-                                    <li><a href="/vessels/fishing-boats">Fishing Boats</a></li>
-                                    <li><a href="/vessels/cruise-boats">Cruise Boats</a></li>
-                                </ul>`;
-      
-      if (content.includes('class="sub-dropdown-menu"')) {
-        content = content.replace(oldDropdownPattern, newDropdownHTML);
-      }
-      
-      fs.writeFileSync(fullPath, content, 'utf8');
-    }
-  }
-}
-
-updateAllHTMLForVesselsHeader(PUBLIC_DIR);
-console.log('Updated all HTML files for Vessels ▾ header and Amal\'s 6 categories!');
+console.log('Unified hero banner updated for all vessel pages!');
