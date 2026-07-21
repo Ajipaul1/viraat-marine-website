@@ -8,14 +8,14 @@ if (!fs.existsSync(VESSELS_DIR)) {
   fs.mkdirSync(VESSELS_DIR, { recursive: true });
 }
 
-// 15 Master Categories from Excel
+// 15 Master Categories from Excel with distinct image paths
 const MASTER_VESSEL_SERIES = [
   {
     group: 'tourism',
     slug: 'house-boats',
     name: 'Houseboat (Kerala Style & Ship Shape)',
     tagline: '1 to 16 Bedroom Luxury Floating Villas',
-    img: '/public/2_FrontEnd/img/vessels/pass_120.png',
+    img: '/public/2_FrontEnd/img/vessels/house_boats.png',
     desc: 'Custom-designed 1 to 16 bedroom traditional Kerala style and ship-shape houseboats. Features luxury air-conditioned suites, upper sun deck lounges, and eco-friendly solar integration.',
     specs: [
       { label: 'Bedrooms Available', val: '1, 2, 3, 4, 6, 8, 10, 12, 14, 16 BR' },
@@ -29,7 +29,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'shikkara-boats',
     name: 'Kerala Model Shikkara',
     tagline: '10 to 50 Pax Traditional Backwater Cruise Boats',
-    img: '/public/2_FrontEnd/img/vessels/pass_120.png',
+    img: '/public/2_FrontEnd/img/vessels/shikkara_boats.png',
     desc: 'Traditional Kerala Shikkara boats built with lightweight marine hull structures and comfortable seating for canal tours and lake sightseeing.',
     specs: [
       { label: 'Pax Capacity', val: '10, 20, 30, 50 Passengers' },
@@ -43,7 +43,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'excursion-boats',
     name: 'Excursion Boats',
     tagline: '20 to 80 Pax Group Sightseeing Vessels',
-    img: '/public/2_FrontEnd/img/vessels/pass_120.png',
+    img: '/public/2_FrontEnd/img/vessels/excursion_boats.png',
     desc: 'Spacious high-capacity excursion craft engineered for island hopping, eco-tourism, and river safari tours with low-wake hull performance.',
     specs: [
       { label: 'Pax Capacity', val: '20, 50, 80 Passengers' },
@@ -57,7 +57,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'speed-boats',
     name: 'Speed Boats',
     tagline: '4 to 14 Seater High-Speed Sports Craft',
-    img: '/public/2_FrontEnd/img/vessels/sentinel_18.png',
+    img: '/public/2_FrontEnd/img/vessels/speed_boats.png',
     desc: 'High-performance deep-V hull speed boats built for watersports, rapid personnel transfer, and thrill rides.',
     specs: [
       { label: 'Seater Models', val: '4, 6, 8, 10, 12, 14 Seater' },
@@ -71,7 +71,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'mini-yachts',
     name: 'Recreational Speed Boat (Mini Yacht)',
     tagline: '8 to 14 Seater Luxury Personal Yachts',
-    img: '/public/2_FrontEnd/img/vessels/sentinel_18.png',
+    img: '/public/2_FrontEnd/img/vessels/mini_yachts.png',
     desc: 'Compact luxury yachts featuring premium upholstered seating, cabin amenities, and high-speed cruising for private charters.',
     specs: [
       { label: 'Seater Models', val: '8 & 14 Seater Luxury Layouts' },
@@ -85,7 +85,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'passenger-ferries',
     name: 'Passenger Ferries',
     tagline: '30 to 120 Seater High-Capacity Ferries',
-    img: '/public/2_FrontEnd/img/vessels/pass_120.png',
+    img: '/public/2_FrontEnd/img/vessels/passenger_ferries.png',
     desc: 'Low-wash catamaran passenger ferries designed for public transportation routes, harbor crossings, and commuter lines.',
     specs: [
       { label: 'Capacity Options', val: '30, 50, 80, 120 Passengers' },
@@ -99,7 +99,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'work-boats',
     name: 'Work Boats',
     tagline: '18m & 24m Ship & Barge Shape Utility Craft',
-    img: '/public/2_FrontEnd/img/vessels/workmax_28.png',
+    img: '/public/2_FrontEnd/img/vessels/work_boats.png',
     desc: 'Multipurpose utility workboats engineered in 18m and 24m length options with both Barge Shape and Ship Shape hull geometries.',
     specs: [
       { label: 'Hull Lengths', val: '18 Meters & 24 Meters' },
@@ -155,7 +155,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'floating-cottages',
     name: 'Floating Cottages',
     tagline: '1, 2 & 4 Bedroom Floating Eco-Resort Units',
-    img: '/public/2_FrontEnd/img/vessels/pass_120.png',
+    img: '/public/2_FrontEnd/img/vessels/house_boats.png',
     desc: 'Stationary floating resort cottages designed for eco-tourism hubs, featuring 1, 2, and 4 bedroom waterfront living spaces.',
     specs: [
       { label: 'Bedroom Options', val: '1, 2, 4 Deluxe Bedrooms' },
@@ -169,7 +169,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'floating-restaurant',
     name: 'Floating Restaurant',
     tagline: 'Multi-Deck Floating Dining & Event Venues',
-    img: '/public/2_FrontEnd/img/vessels/pass_120.png',
+    img: '/public/2_FrontEnd/img/vessels/passenger_ferries.png',
     desc: 'Commercial multi-deck floating restaurants designed for waterfront dining, banquet halls, and corporate receptions.',
     specs: [
       { label: 'Seating Capacity', val: '100 to 300 Dining Guests' },
@@ -183,7 +183,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'floating-lodge',
     name: 'Floating Lodge',
     tagline: '20 & 50 Pax Floating Hotel Accommodation',
-    img: '/public/2_FrontEnd/img/vessels/pass_120.png',
+    img: '/public/2_FrontEnd/img/vessels/house_boats.png',
     desc: 'Large floating accommodation lodges designed for remote resort locations, offshore projects, and hospitality operators.',
     specs: [
       { label: 'Pax Capacity', val: '20 & 50 Pax Lodging' },
@@ -197,7 +197,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'car-boats',
     name: 'Car Boat Series',
     tagline: 'Sedan, Hatchback & SUV Water-Cars',
-    img: '/public/2_FrontEnd/img/vessels/sentinel_18.png',
+    img: '/public/2_FrontEnd/img/vessels/speed_boats.png',
     desc: 'Unique amphibious and car-styled watercraft designed in Sedan, Hatchback, and SUV automobile shapes for theme parks and rental operations.',
     specs: [
       { label: 'Models Available', val: 'Sedan, Hatchback, SUV Water-Cars' },
@@ -280,7 +280,7 @@ const ORIGINAL_FOOTER_HTML = `
     </div>
 `;
 
-// Common Header HTML with 4 Structured Submenus
+// Common Header HTML
 const HEADER_HTML = `
     <header class="main_nav_header">
         <div class="container-fluid p-0">
@@ -358,8 +358,8 @@ const VESSELS_MAIN_HTML = `<!doctype html>
     <link rel="icon" href="/public/2_FrontEnd/img/favico.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=5">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=5">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=6">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=6">
 </head>
 <body id="body" class="light-mode">
 
@@ -422,8 +422,8 @@ for (const c of MASTER_VESSEL_SERIES) {
     <link rel="icon" href="/public/2_FrontEnd/img/favico.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=5">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=5">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=6">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=6">
 </head>
 <body id="body" class="light-mode">
 
@@ -479,53 +479,4 @@ for (const c of MASTER_VESSEL_SERIES) {
   fs.writeFileSync(path.join(VESSELS_DIR, c.slug + '.html'), CATEGORY_HTML, 'utf8');
 }
 
-// Update header in all html files across public/
-function updateAllHTMLForMasterSeriesHeader(dir) {
-  const files = fs.readdirSync(dir);
-  for (const file of files) {
-    const fullPath = path.join(dir, file);
-    if (fs.statSync(fullPath).isDirectory()) {
-      updateAllHTMLForMasterSeriesHeader(fullPath);
-    } else if (file.endsWith('.html')) {
-      let content = fs.readFileSync(fullPath, 'utf8');
-      
-      const oldDropdownPattern = /<ul class="sub-dropdown-menu"[\s\S]*?<\/ul>/g;
-      const newDropdownHTML = `<ul class="sub-dropdown-menu" style="min-width: 290px;">
-                                    <li class="dropdown-header-title">Viraat Marine Series</li>
-                                    <li><a href="/vessels">All 15 Vessel Categories</a></li>
-                                    
-                                    <li class="dropdown-header-title" style="margin-top:8px;">Tourism & Passenger</li>
-                                    <li><a href="/vessels/house-boats">Houseboat Series (1-16 BR)</a></li>
-                                    <li><a href="/vessels/shikkara-boats">Kerala Shikkara Boats</a></li>
-                                    <li><a href="/vessels/excursion-boats">Excursion Boats</a></li>
-                                    <li><a href="/vessels/speed-boats">Speed Boats (4-14 Seater)</a></li>
-                                    <li><a href="/vessels/mini-yachts">Recreational Mini Yachts</a></li>
-                                    <li><a href="/vessels/passenger-ferries">Passenger Ferries</a></li>
-
-                                    <li class="dropdown-header-title" style="margin-top:8px;">Commercial & Workboats</li>
-                                    <li><a href="/vessels/work-boats">Work Boats (Ship & Barge Shape)</a></li>
-                                    <li><a href="/vessels/ro-ro-barges">RO-RO Barges (50-120 Ton)</a></li>
-                                    <li><a href="/vessels/tug-boats">Tugs & Towage Craft</a></li>
-                                    <li><a href="/vessels/fishing-vessels">Fishing Vessels</a></li>
-
-                                    <li class="dropdown-header-title" style="margin-top:8px;">Floating Hospitality</li>
-                                    <li><a href="/vessels/floating-cottages">Floating Cottages</a></li>
-                                    <li><a href="/vessels/floating-restaurant">Floating Restaurants</a></li>
-                                    <li><a href="/vessels/floating-lodge">Floating Lodges</a></li>
-
-                                    <li class="dropdown-header-title" style="margin-top:8px;">Recreational & Innovation</li>
-                                    <li><a href="/vessels/car-boats">Car Boats (Sedan/SUV Water-Cars)</a></li>
-                                    <li><a href="/vessels/adventure-innovative-boats">Kayaks, Canoes & Pool Boats</a></li>
-                                </ul>`;
-      
-      if (content.includes('class="sub-dropdown-menu"')) {
-        content = content.replace(oldDropdownPattern, newDropdownHTML);
-      }
-      
-      fs.writeFileSync(fullPath, content, 'utf8');
-    }
-  }
-}
-
-updateAllHTMLForMasterSeriesHeader(PUBLIC_DIR);
-console.log('Successfully built all 15 master vessel series pages & updated header dropdown!');
+console.log('Successfully re-built all 15 master vessel pages with authentic realistic image paths!');
