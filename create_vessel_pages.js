@@ -8,7 +8,65 @@ if (!fs.existsSync(VESSELS_DIR)) {
   fs.mkdirSync(VESSELS_DIR, { recursive: true });
 }
 
-// Common Header HTML
+// Exact Original Footer HTML from index.html
+const ORIGINAL_FOOTER_HTML = `
+    <footer class="">
+        <div class="primary-footer common-section-pad">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="footer-left">
+                        <span class="logo"><img src="/public/2_FrontEnd/img/logo.png" class="img-fluid" alt=""></span>
+                        <p class="text-small">Company offers expert design, engineering, and consulting services for a wide range of marine vessels. We specialize in creating custom solutions for ships, yachts, and boats, ensuring each vessel is safe, efficient, and built to meet industry standards</p>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h4>Page Links</h4>
+                    <div class="page-links-ul">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/vessels">Vessels</a></li>
+                            <li><a href="/services">Services</a></li>
+                            <li><a href="/career">Career</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                   <div class="address-foot">
+                    <h4>Corporate office</h4>
+                        <p>61/2579 ,2nd Floor, Pattoor Chambers,<br>Alappat Cross Road, Perumanoor<br>Kochi, Kerala, India , 682016</p>
+                   </div>
+                </div>
+                <div class="col-lg-3">
+                   <div class="address-foot">
+                    <h4>Contact us</h4>
+                        <ul>
+                            <li><a target="_blank" href="https://web.whatsapp.com/send?phone=+918075785379"><img src="/2_FrontEnd/img/phone-call.webp" class="img-fluid" alt=""> +91 8075 785 379</a></li>
+                            <li><a href="mailto:operations@viraatmarine.com"><img src="/2_FrontEnd/img/chat.png" class="img-fluid" alt="">operations@viraatmarine.com</a></li>
+                            <li><a class="m-0" href="mailto:amal.binoy@viraatmarine.com"><img src="/2_FrontEnd/img/chat.png" class="img-fluid" alt=""> amal.binoy@viraatmarine.com</a></li>
+                        </ul>
+                   </div>
+                   <ul class="social-footer-icons">
+                            <li><a target="_blank" href=""><img loading="lazy" data-src="/public/2_FrontEnd/img/facebook.webp" class="img-fluid lazyload" src="/public/2_FrontEnd/img/facebook.webp"></a></li>
+                            <li><a target="_blank" href="https://www.linkedin.com/company/viraat-marine/"><img loading="lazy" data-src="/public/2_FrontEnd/img/linkedin.webp" class="img-fluid lazyload" src="/public/2_FrontEnd/img/linkedin.webp"></a></li>
+                            <li><a target="_blank" href="https://www.instagram.com/_viraatmarine_/profilecard/?igsh=aHFvY3RrMHQzanF1"><img loading="lazy" data-src="/public/2_FrontEnd/img/instagram.webp" class="img-fluid lazyload" src="/public/2_FrontEnd/img/instagram.webp"></a></li>
+                            <li><a target="_blank" href="https://youtube.com/@viraatmarine?si=2Z21ViuKRs_EzV1R"><img loading="lazy" data-src="/public/2_FrontEnd/img/youtube.webp" class="img-fluid lazyload" src="/public/2_FrontEnd/img/youtube.webp"></a></li>
+                   </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid secondary-footer">
+            <p class="text-white m-0">@copyright <a href="/"> www.viraatmarine.com</a> 2024</p>
+        </div>
+    </footer>
+    <div class="fixed-whatsapp">
+        <a target="_blank" href="https://web.whatsapp.com/send?phone=+918075785379"><img src="/2_FrontEnd/img/whatsapp.svg" class="img-fluid" alt=""></a>
+        <a href="https://wa.me/+918075785379"><img src="/2_FrontEnd/img/whatsapp.svg" class="img-fluid" alt=""></a>
+    </div>
+`;
+
+// Common Header HTML with Vessels ▾ Nav
 const HEADER_HTML = `
     <header class="main_nav_header">
         <div class="container-fluid p-0">
@@ -35,15 +93,16 @@ const HEADER_HTML = `
                             <li><a href="/">Home</a></li>
                             <li><a href="/about">About</a></li>
                             <li class="dropdown-item-wrapper">
-                                <a href="/vessels" class="dropdown-toggle-link active">Products <span class="arrow-down">▾</span></a>
+                                <a href="/vessels" class="dropdown-toggle-link active">Vessels <span class="arrow-down">▾</span></a>
                                 <ul class="sub-dropdown-menu">
                                     <li class="dropdown-header-title">Vessel Categories</li>
-                                    <li><a href="/vessels">All Fleet Overview</a></li>
-                                    <li><a href="/vessels/crew-transfer-vessel">Crew Transfer Vessels (CTV)</a></li>
-                                    <li><a href="/vessels/ocean-tugboat">Ocean & Harbor Tugs</a></li>
-                                    <li><a href="/vessels/patrol-craft">High-Speed Patrol Craft</a></li>
-                                    <li><a href="/vessels/passenger-ferry">Catamaran Ferries</a></li>
-                                    <li><a href="/vessels/utility-workboat">Multipurpose Workboats</a></li>
+                                    <li><a href="/vessels">All Vessel Fleet</a></li>
+                                    <li><a href="/vessels/house-boats">House Boats</a></li>
+                                    <li><a href="/vessels/tourist-boats">Tourist Boats</a></li>
+                                    <li><a href="/vessels/work-boats">Work Boats</a></li>
+                                    <li><a href="/vessels/tugs">Tugs</a></li>
+                                    <li><a href="/vessels/fishing-boats">Fishing Boats</a></li>
+                                    <li><a href="/vessels/cruise-boats">Cruise Boats</a></li>
                                 </ul>
                             </li>
                             <li><a href="/services">Services</a></li>
@@ -57,370 +116,255 @@ const HEADER_HTML = `
     </header>
 `;
 
-// Common Footer HTML
-const FOOTER_HTML = `
-    <footer class="footer-bg position-relative">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="footer-widget">
-                        <a href="/" class="footer-logo"><img src="/public/2_FrontEnd/img/logo-white.png" class="img-fluid mb-3" style="max-width:200px" alt="Viraat Marine"></a>
-                        <p style="color:#cbd5e1; font-size:15px;">ISO 9001:2015 and ISO 14001:2015 certified marine design, naval architecture, and boat building firm delivering world-class offshore vessels.</p>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <div class="footer-widget">
-                        <h4 style="color:#0fbed2; font-weight:700; margin-bottom:20px;">Quick Links</h4>
-                        <ul style="list-style:none; padding:0;">
-                            <li class="mb-2"><a href="/" style="color:#fff; text-decoration:none;">Home</a></li>
-                            <li class="mb-2"><a href="/about" style="color:#fff; text-decoration:none;">About Us</a></li>
-                            <li class="mb-2"><a href="/vessels" style="color:#0fbed2; text-decoration:none;">Products / Vessels</a></li>
-                            <li class="mb-2"><a href="/services" style="color:#fff; text-decoration:none;">Services</a></li>
-                            <li class="mb-2"><a href="/career" style="color:#fff; text-decoration:none;">Careers</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="footer-widget">
-                        <h4 style="color:#0fbed2; font-weight:700; margin-bottom:20px;">Corporate Office</h4>
-                        <p style="color:#cbd5e1; font-size:15px;">61/2579, 2nd Floor, Pattoor Chambers,<br>Alappat Cross Road, Perumanoor,<br>Kochi, Kerala, India - 682016</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="footer-widget">
-                        <h4 style="color:#0fbed2; font-weight:700; margin-bottom:20px;">Contact Us</h4>
-                        <p style="color:#cbd5e1; font-size:15px;">📞 +91 8075 785 379<br>✉️ operations@viraatmarine.com<br>✉️ amal.binoy@viraatmarine.com</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row pt-4 style-border-top" style="border-top: 1px solid rgba(255,255,255,0.1);">
-                <div class="col-md-12 text-center">
-                    <p style="color:#94a3b8; font-size:14px;">© ${new Date().getFullYear()} Viraat Marine Pvt Ltd. All Rights Reserved.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-`;
-
-// 1. Generate Fleet Overview Page (vessels.html)
-const VESSELS_HTML_CONTENT = `<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Products & Vessel Fleet | Viraat Marine</title>
-    <meta name="description" content="Explore Viraat Marine's custom vessel fleet including Crew Transfer Vessels (CTV), Ocean Tugs, High-Speed Patrol Craft, Catamaran Ferries, and Utility Workboats.">
-    <link rel="icon" href="/public/2_FrontEnd/img/favico.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=2">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=2">
-</head>
-<body id="body" class="light-mode" style="background:#051329; color:#fff;">
-
-    ${HEADER_HTML}
-
-    <!-- Hero Header Banner -->
-    <section style="background: linear-gradient(135deg, rgba(9, 29, 62, 0.95), rgba(5, 19, 41, 0.98)), url('/public/2_FrontEnd/img/banner-2.webp') center/cover; padding: 160px 0 80px 0; text-align: center; border-bottom: 1px solid rgba(15, 190, 210, 0.2);">
-        <div class="container">
-            <h1 style="font-size: 52px; font-weight: 800; color: #fff; margin-bottom: 20px;">Viraat Marine Fleet & Vessel Portfolio</h1>
-            <p style="font-size: 20px; color: #94a3b8; max-width: 800px; margin: 0 auto 30px auto;">State-of-the-art naval architecture, custom aluminium & steel hull engineering, and classification-certified vessel designs built for superior sea performance.</p>
-            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <a href="#vessels-grid" class="primary-btn" style="background:#0fbed2; color:#091d3e; font-weight:700;">Explore Vessel Models</a>
-                <a href="/contact" class="primary-btn" style="border: 1px solid #0fbed2; color:#0fbed2; background:transparent;">Request Custom Vessel Design</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Vessel Grid Section -->
-    <section id="vessels-grid" class="common-section-pad" style="padding: 80px 0;">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-lg-8 m-auto text-center">
-                    <span class="sub-head" style="color:#0fbed2; text-transform:uppercase; letter-spacing:2px; font-weight:700;">Engineered For Excellence</span>
-                    <h2 style="color:#fff; font-size:42px; font-weight:800; margin-top:10px;">Our Premium Vessel Lineup</h2>
-                    <p style="color:#94a3b8; font-size:17px;">Select a vessel model below to view full technical specifications, general arrangement, and operational capabilities.</p>
-                </div>
-            </div>
-
-            <div class="row g-4">
-
-                <!-- Vessel 1: CTV-24 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="vessel-card">
-                        <div class="vessel-img-wrapper">
-                            <img src="/public/2_FrontEnd/img/vessels/ctv_24.png" alt="Viraat CTV-24 Crew Transfer Vessel">
-                            <span class="vessel-badge">Crew Transfer</span>
-                        </div>
-                        <div class="vessel-card-body">
-                            <h3>Viraat CTV-24</h3>
-                            <p>24m High-Speed Offshore Crew Transfer Catamaran designed for offshore wind farm and rig transfer operations with maximum comfort and stability.</p>
-                            <div class="vessel-specs-grid">
-                                <div class="spec-item"><strong>Length (LOA)</strong> 24.5 Meters</div>
-                                <div class="spec-item"><strong>Max Speed</strong> 28 Knots</div>
-                                <div class="spec-item"><strong>Capacity</strong> 24 Technicians</div>
-                                <div class="spec-item"><strong>Hull Material</strong> Aluminium 5083</div>
-                            </div>
-                            <a href="/vessels/crew-transfer-vessel" class="btn-vessel-details">View Full Specifications ➔</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vessel 2: Tug-3200 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="vessel-card">
-                        <div class="vessel-img-wrapper">
-                            <img src="/public/2_FrontEnd/img/vessels/tug_3200.png" alt="Viraat Tug-3200 Ocean Tugboat">
-                            <span class="vessel-badge">Ocean Tugboat</span>
-                        </div>
-                        <div class="vessel-card-body">
-                            <h3>Viraat Tug-3200</h3>
-                            <p>32m 70-Ton Bollard Pull ASD Ocean Tugboat built for heavy ship handling, ocean towage, escort duties, and emergency response operations.</p>
-                            <div class="vessel-specs-grid">
-                                <div class="spec-item"><strong>Length (LOA)</strong> 32.0 Meters</div>
-                                <div class="spec-item"><strong>Bollard Pull</strong> 70 Tonnes</div>
-                                <div class="spec-item"><strong>Engine Power</strong> 2 x 2000 kW</div>
-                                <div class="spec-item"><strong>Hull Material</strong> Grade A Steel</div>
-                            </div>
-                            <a href="/vessels/ocean-tugboat" class="btn-vessel-details">View Full Specifications ➔</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vessel 3: Sentinel-18 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="vessel-card">
-                        <div class="vessel-img-wrapper">
-                            <img src="/public/2_FrontEnd/img/vessels/sentinel_18.png" alt="Viraat Sentinel-18 Patrol Craft">
-                            <span class="vessel-badge">Patrol Craft</span>
-                        </div>
-                        <div class="vessel-card-body">
-                            <h3>Viraat Sentinel-18</h3>
-                            <p>18m High-Speed Tactical Coastal Patrol & Interceptor Vessel equipped with advanced surveillance radar and high-maneuverability deep-V hull.</p>
-                            <div class="vessel-specs-grid">
-                                <div class="spec-item"><strong>Length (LOA)</strong> 18.2 Meters</div>
-                                <div class="spec-item"><strong>Max Speed</strong> 42 Knots</div>
-                                <div class="spec-item"><strong>Range</strong> 450 NM</div>
-                                <div class="spec-item"><strong>Hull Material</strong> Marine Aluminium</div>
-                            </div>
-                            <a href="/vessels/patrol-craft" class="btn-vessel-details">View Full Specifications ➔</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vessel 4: Pass-120 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="vessel-card">
-                        <div class="vessel-img-wrapper">
-                            <img src="/public/2_FrontEnd/img/vessels/pass_120.png" alt="Viraat Pass-120 Passenger Ferry">
-                            <span class="vessel-badge">Passenger Ferry</span>
-                        </div>
-                        <div class="vessel-card-body">
-                            <h3>Viraat Pass-120</h3>
-                            <p>35m Low-Wash High-Capacity Catamaran Passenger Ferry featuring air-conditioned interior seating, panoramic views, and eco-efficient engines.</p>
-                            <div class="vessel-specs-grid">
-                                <div class="spec-item"><strong>Length (LOA)</strong> 35.0 Meters</div>
-                                <div class="spec-item"><strong>Capacity</strong> 120 Passengers</div>
-                                <div class="spec-item"><strong>Service Speed</strong> 22 Knots</div>
-                                <div class="spec-item"><strong>Hull Material</strong> Composite / Alum</div>
-                            </div>
-                            <a href="/vessels/passenger-ferry" class="btn-vessel-details">View Full Specifications ➔</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vessel 5: WorkMax-28 -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="vessel-card">
-                        <div class="vessel-img-wrapper">
-                            <img src="/public/2_FrontEnd/img/vessels/workmax_28.png" alt="Viraat WorkMax-28 Utility Workboat">
-                            <span class="vessel-badge">Utility Workboat</span>
-                        </div>
-                        <div class="vessel-card-body">
-                            <h3>Viraat WorkMax-28</h3>
-                            <p>28m Multipurpose Offshore Support & Utility Workboat equipped with deck crane, A-frame mount, AHT winch, and clear deck cargo space.</p>
-                            <div class="vessel-specs-grid">
-                                <div class="spec-item"><strong>Length (LOA)</strong> 28.4 Meters</div>
-                                <div class="spec-item"><strong>Deck Cargo</strong> 45 Tonnes</div>
-                                <div class="spec-item"><strong>Crane Capacity</strong> 15 T/m</div>
-                                <div class="spec-item"><strong>Hull Material</strong> Heavy Duty Steel</div>
-                            </div>
-                            <a href="/vessels/utility-workboat" class="btn-vessel-details">View Full Specifications ➔</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    ${FOOTER_HTML}
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-`;
-
-fs.writeFileSync(path.join(PUBLIC_DIR, 'vessels.html'), VESSELS_HTML_CONTENT, 'utf8');
-console.log('Created vessels.html Fleet Overview Page');
-
-// 2. Generate 5 Detail Pages
-const VESSEL_DETAILS_DATA = [
+// 6 Categories from Amal
+const AMAL_CATEGORIES = [
   {
-    slug: 'crew-transfer-vessel.html',
-    title: 'Viraat CTV-24 | Crew Transfer Vessel',
-    name: 'Viraat CTV-24',
-    type: 'Offshore Crew Transfer Catamaran',
-    img: '/public/2_FrontEnd/img/vessels/ctv_24.png',
-    desc: 'The Viraat CTV-24 is a 24.5-meter high-speed catamaran specifically engineered for safe and efficient technician transfer to offshore wind farms, oil platforms, and marine installations.',
-    loa: '24.50 m',
-    beam: '8.20 m',
-    draft: '1.45 m',
-    speed: '28 Knots (Max) / 24 Knots (Service)',
-    capacity: '24 Industrial Personnel + 4 Crew',
-    engine: '2 x MAN D2862 LE463 (1029 kW @ 2100 rpm)',
-    hull: 'Aluminium Alloy 5083 H116',
-    class: 'DNV / Bureau Veritas / IRS Offshore Service'
-  },
-  {
-    slug: 'ocean-tugboat.html',
-    title: 'Viraat Tug-3200 | ASD Ocean Tugboat',
-    name: 'Viraat Tug-3200',
-    type: 'Azimuth Stern Drive (ASD) Ocean Tugboat',
-    img: '/public/2_FrontEnd/img/vessels/tug_3200.png',
-    desc: 'The Viraat Tug-3200 is a heavy-duty 70-Ton bollard pull ASD tugboat designed for ship assist, offshore terminal towing, escort operations, and fire-fighting response.',
-    loa: '32.00 m',
-    beam: '11.50 m',
-    draft: '4.80 m',
-    speed: '13.5 Knots',
-    capacity: '70 Tonnes Bollard Pull',
-    engine: '2 x Niigata 6L28AHX (2000 kW each)',
-    hull: 'Grade A Shipbuilding Steel',
-    class: 'IRS / ABS / DNV Tug + FiFi 1'
-  },
-  {
-    slug: 'patrol-craft.html',
-    title: 'Viraat Sentinel-18 | High-Speed Patrol Craft',
-    name: 'Viraat Sentinel-18',
-    type: 'High-Speed Tactical Interceptor Patrol Vessel',
-    img: '/public/2_FrontEnd/img/vessels/sentinel_18.png',
-    desc: 'Built for coast guard, maritime police, and harbor security operations, the Viraat Sentinel-18 delivers high-speed interception capabilities with exceptional sea-keeping performance.',
-    loa: '18.20 m',
-    beam: '4.60 m',
-    draft: '0.95 m',
-    speed: '42 Knots (Max)',
-    capacity: '6 Tactical Crew + 8 Troops',
-    engine: '2 x HamiltonJet Waterjets with Caterpillar C18 Engines',
-    hull: 'Marine Grade Aluminium Alloys',
-    class: 'IRS / Lloyd\'s Register Patrol Craft'
-  },
-  {
-    slug: 'passenger-ferry.html',
-    title: 'Viraat Pass-120 | Catamaran Passenger Ferry',
-    name: 'Viraat Pass-120',
-    type: 'Low-Wash High-Speed Catamaran Passenger Ferry',
+    slug: 'house-boats',
+    name: 'House Boats',
+    tagline: 'Luxury Luxury Floating Villas & Kettuvallam Designs',
     img: '/public/2_FrontEnd/img/vessels/pass_120.png',
-    desc: 'Designed for coastal and inter-island passenger transportation, the Viraat Pass-120 combines spacious air-conditioned seating with low wake wash for environmental protection.',
-    loa: '35.00 m',
-    beam: '9.50 m',
-    draft: '1.20 m',
-    speed: '22 Knots (Service Speed)',
-    capacity: '120 Passengers + 6 Crew',
-    engine: '2 x Scania DI16 076M (552 kW @ 2100 rpm)',
-    hull: 'Lightweight Composite / Marine Aluminium',
-    class: 'IRS High-Speed Passenger Craft'
+    desc: 'Custom engineered luxury houseboats designed for backwater and coastal tourism. Combining traditional aesthetics with modern stability, eco-friendly solar integration, and premium interior layouts.',
+    loa: '28.5 m',
+    beam: '6.5 m',
+    capacity: '2-4 Deluxe Bedrooms + Sun Deck',
+    material: 'Aluminium / Composite / Treated Wood'
   },
   {
-    slug: 'utility-workboat.html',
-    title: 'Viraat WorkMax-28 | Multipurpose Utility Workboat',
-    name: 'Viraat WorkMax-28',
-    type: 'Multipurpose Offshore Support & Utility Workboat',
+    slug: 'tourist-boats',
+    name: 'Tourist Boats',
+    tagline: 'High-Capacity Sightseeing & Passenger Craft',
+    img: '/public/2_FrontEnd/img/vessels/pass_120.png',
+    desc: 'Efficient, low-wash tourist passenger boats designed for safe coastal and inland waterway sightseeing tours. Features panoramic safety windows and ergonomic seating.',
+    loa: '18.0 m',
+    beam: '4.8 m',
+    capacity: '50-100 Passengers',
+    material: 'FRP / Marine Aluminium 5083'
+  },
+  {
+    slug: 'work-boats',
+    name: 'Work Boats',
+    tagline: 'Multipurpose Utility & Construction Support Boats',
     img: '/public/2_FrontEnd/img/vessels/workmax_28.png',
-    desc: 'The Viraat WorkMax-28 is a versatile workhorse for marine construction, anchor handling, dive support, and heavy deck cargo transportation.',
-    loa: '28.40 m',
-    beam: '9.00 m',
-    draft: '2.50 m',
-    speed: '12.0 Knots',
-    capacity: '45 Tonnes Clear Deck Space',
-    engine: '2 x Cummins KTA19-M3 (447 kW @ 1800 rpm)',
-    hull: 'Heavy Duty Structural Steel',
-    class: 'IRS Workboat Class'
+    desc: 'Heavy-duty utility workboats designed for harbor maintenance, dive support, cargo transport, and marine construction support operations.',
+    loa: '24.0 m',
+    beam: '8.0 m',
+    capacity: '35 Tonnes Deck Payload',
+    material: 'Heavy Duty Structural Steel'
+  },
+  {
+    slug: 'tugs',
+    name: 'Tugs',
+    tagline: 'Harbor & ASD Ocean Towage Tugs',
+    img: '/public/2_FrontEnd/img/vessels/tug_3200.png',
+    desc: 'High bollard pull Azimuth Stern Drive (ASD) and harbor tugboats engineered for ship handling, vessel escort, and emergency towing operations.',
+    loa: '32.0 m',
+    beam: '11.5 m',
+    capacity: '70 Tonnes Bollard Pull',
+    material: 'Grade A Shipbuilding Steel'
+  },
+  {
+    slug: 'fishing-boats',
+    name: 'Fishing Boats',
+    tagline: 'Deep Sea & Coastal Commercial Fishing Craft',
+    img: '/public/2_FrontEnd/img/vessels/sentinel_18.png',
+    desc: 'Robust commercial fishing vessels designed for extended sea endurance, insulated catch holds, and optimized fuel efficiency.',
+    loa: '22.0 m',
+    beam: '6.2 m',
+    capacity: '20 Tonnes Cold Hold Capacity',
+    material: 'Marine Grade Steel / FRP'
+  },
+  {
+    slug: 'cruise-boats',
+    name: 'Cruise Boats',
+    tagline: 'Premium Passenger Day Cruise & Event Vessels',
+    img: '/public/2_FrontEnd/img/vessels/ctv_24.png',
+    desc: 'Elegant multi-deck day cruise vessels designed for corporate events, coastal dinners, and luxury charter operations.',
+    loa: '35.0 m',
+    beam: '9.0 m',
+    capacity: '150 Passengers + Event Stage',
+    material: 'Marine Aluminium / Steel'
   }
 ];
 
-for (const v of VESSEL_DETAILS_DATA) {
-  const DETAIL_HTML = `<!doctype html>
+// 1. Generate vessels.html Fleet Overview Page
+const VESSELS_MAIN_HTML = `<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>${v.title} | Viraat Marine</title>
-    <meta name="description" content="${v.desc}">
+    <title>Vessels & Fleet Portfolio | Viraat Marine</title>
+    <meta name="description" content="Explore Viraat Marine custom vessel designs: House Boats, Tourist Boats, Work Boats, Tugs, Fishing Boats, and Cruise Boats.">
     <link rel="icon" href="/public/2_FrontEnd/img/favico.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=2">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=2">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=3">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=3">
 </head>
-<body id="body" class="light-mode" style="background:#051329; color:#fff;">
+<body id="body" class="light-mode">
 
     ${HEADER_HTML}
 
-    <!-- Hero Header Banner -->
-    <section style="background: linear-gradient(135deg, rgba(9, 29, 62, 0.95), rgba(5, 19, 41, 0.98)), url('${v.img}') center/cover; padding: 160px 0 80px 0; border-bottom: 1px solid rgba(15, 190, 210, 0.2);">
-        <div class="container">
-            <a href="/vessels" style="color:#0fbed2; text-decoration:none; font-weight:600; display:inline-block; margin-bottom:15px;">⬅ Back to All Vessels</a>
-            <h1 style="font-size: 48px; font-weight: 800; color: #fff; margin-bottom: 15px;">${v.name}</h1>
-            <p style="font-size: 20px; color: #0fbed2; font-weight:600;">${v.type}</p>
+    <!-- Hero Banner -->
+    <section class="home-banner" style="padding-top:140px; background: url(/2_FrontEnd/img/banner-2.webp) center/cover; position:relative;">
+        <div class="cover" style="background: rgba(9,29,62,0.85); padding: 80px 0;">
+            <div class="container text-center">
+                <h1 style="color:#fff; font-size:48px; font-weight:800;">Viraat Marine Vessel Categories</h1>
+                <p style="color:#0fbed2; font-size:20px; max-width:800px; margin: 15px auto 0 auto;">Custom Naval Architecture, Design & Construction for Commercial and Tourist Vessels</p>
+            </div>
         </div>
     </section>
 
-    <!-- Details Section -->
-    <section class="common-section-pad" style="padding: 80px 0;">
+    <!-- Categories Grid Section -->
+    <section class="common-section-pad">
+        <div class="container">
+            <div class="row g-4">
+                ${AMAL_CATEGORIES.map(c => `
+                <div class="col-lg-4 col-md-6">
+                    <div class="vessel-card">
+                        <div class="vessel-img-wrapper">
+                            <img src="${c.img}" alt="${c.name}">
+                            <span class="vessel-badge">${c.name}</span>
+                        </div>
+                        <div class="vessel-card-body">
+                            <h3>${c.name}</h3>
+                            <p>${c.tagline}</p>
+                            <div class="vessel-specs-grid">
+                                <div class="spec-item"><strong>Length (LOA)</strong> ${c.loa}</div>
+                                <div class="spec-item"><strong>Capacity</strong> ${c.capacity}</div>
+                                <div class="spec-item"><strong>Hull Material</strong> ${c.material}</div>
+                                <div class="spec-item"><strong>Beam</strong> ${c.beam}</div>
+                            </div>
+                            <a href="/vessels/${c.slug}" class="btn-vessel-details">Explore ${c.name} Details ➔</a>
+                        </div>
+                    </div>
+                </div>
+                `).join('')}
+            </div>
+        </div>
+    </section>
+
+    ${ORIGINAL_FOOTER_HTML}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
+    <script src="/public/2_FrontEnd/js/main.js"></script>
+</body>
+</html>
+`;
+
+fs.writeFileSync(path.join(PUBLIC_DIR, 'vessels.html'), VESSELS_MAIN_HTML, 'utf8');
+console.log('Updated vessels.html with Amal categories and original footer!');
+
+// 2. Generate 6 Category Detail Pages
+for (const c of AMAL_CATEGORIES) {
+  const CATEGORY_HTML = `<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${c.name} | Viraat Marine Vessel Design</title>
+    <meta name="description" content="${c.desc}">
+    <link rel="icon" href="/public/2_FrontEnd/img/favico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=3">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=3">
+</head>
+<body id="body" class="light-mode">
+
+    ${HEADER_HTML}
+
+    <!-- Hero Banner -->
+    <section class="home-banner" style="padding-top:140px; background: url(/2_FrontEnd/img/banner-2.webp) center/cover; position:relative;">
+        <div class="cover" style="background: rgba(9,29,62,0.85); padding: 70px 0;">
+            <div class="container">
+                <a href="/vessels" style="color:#0fbed2; text-decoration:none; font-weight:600; margin-bottom:10px; display:inline-block;">⬅ Back to All Vessel Categories</a>
+                <h1 style="color:#fff; font-size:45px; font-weight:800;">${c.name}</h1>
+                <p style="color:#0fbed2; font-size:18px;">${c.tagline}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Detail Content -->
+    <section class="common-section-pad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-4">
-                    <div style="border-radius:12px; overflow:hidden; border:1px solid rgba(15,190,210,0.3); box-shadow:0 15px 35px rgba(0,0,0,0.4);">
-                        <img src="${v.img}" alt="${v.name}" class="img-fluid w-100">
+                    <div style="border-radius:12px; overflow:hidden; border:1px solid rgba(15,190,210,0.3); box-shadow:0 15px 35px rgba(0,0,0,0.2);">
+                        <img src="${c.img}" alt="${c.name}" class="img-fluid w-100">
                     </div>
                 </div>
                 <div class="col-lg-6 mb-4">
-                    <h2 style="color:#fff; font-size:32px; font-weight:700; margin-bottom:20px;">Vessel Overview</h2>
-                    <p style="color:#94a3b8; font-size:17px; line-height:1.7; margin-bottom:30px;">${v.desc}</p>
+                    <h2 style="font-size:32px; font-weight:700; margin-bottom:15px; color:#091d3e;">${c.name} Design & Engineering</h2>
+                    <p style="font-size:17px; line-height:1.7; color:#5f5f5f; margin-bottom:25px;">${c.desc}</p>
                     
-                    <h3 style="color:#0fbed2; font-size:22px; font-weight:700; margin-bottom:20px;">General Parameters & Specifications</h3>
-                    <table class="table table-dark table-striped" style="border: 1px solid rgba(15, 190, 210, 0.2);">
+                    <h4 style="color:#0fbed2; font-weight:700; margin-bottom:15px;">Standard Specifications</h4>
+                    <table class="table table-bordered table-striped">
                         <tbody>
-                            <tr><td style="color:#94a3b8;">Length Overall (LOA)</td><td style="color:#fff; font-weight:600;">${v.loa}</td></tr>
-                            <tr><td style="color:#94a3b8;">Beam Overall</td><td style="color:#fff; font-weight:600;">${v.beam}</td></tr>
-                            <tr><td style="color:#94a3b8;">Draft</td><td style="color:#fff; font-weight:600;">${v.draft}</td></tr>
-                            <tr><td style="color:#94a3b8;">Speed Performance</td><td style="color:#fff; font-weight:600;">${v.speed}</td></tr>
-                            <tr><td style="color:#94a3b8;">Capacity / Payload</td><td style="color:#fff; font-weight:600;">${v.capacity}</td></tr>
-                            <tr><td style="color:#94a3b8;">Main Propulsion</td><td style="color:#fff; font-weight:600;">${v.engine}</td></tr>
-                            <tr><td style="color:#94a3b8;">Hull Material</td><td style="color:#fff; font-weight:600;">${v.hull}</td></tr>
-                            <tr><td style="color:#94a3b8;">Classification Standard</td><td style="color:#fff; font-weight:600;">${v.class}</td></tr>
+                            <tr><td><strong>Length Overall (LOA)</strong></td><td>${c.loa}</td></tr>
+                            <tr><td><strong>Beam Overall</strong></td><td>${c.beam}</td></tr>
+                            <tr><td><strong>Operational Capacity</strong></td><td>${c.capacity}</td></tr>
+                            <tr><td><strong>Primary Material</strong></td><td>${c.material}</td></tr>
+                            <tr><td><strong>Classification</strong></td><td>IRS / DNV / Custom Standards</td></tr>
                         </tbody>
                     </table>
 
-                    <div style="margin-top:35px;">
-                        <a href="/contact" class="primary-btn" style="background:#0fbed2; color:#091d3e; font-weight:700; padding:15px 35px; display:inline-block; font-size:16px;">Inquire About ${v.name} ➔</a>
+                    <div style="margin-top:30px;">
+                        <a href="/contact" class="primary-btn" style="background:#0fbed2; color:#091d3e; font-weight:700; display:inline-block;">Request ${c.name} Design Quote ➔</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    ${FOOTER_HTML}
+    ${ORIGINAL_FOOTER_HTML}
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
+    <script src="/public/2_FrontEnd/js/main.js"></script>
 </body>
 </html>
 `;
 
-  fs.writeFileSync(path.join(VESSELS_DIR, v.slug), DETAIL_HTML, 'utf8');
-  console.log(`Created vessel detail page: vessels/${v.slug}`);
+  fs.writeFileSync(path.join(VESSELS_DIR, c.slug + '.html'), CATEGORY_HTML, 'utf8');
+  console.log(`Created category detail page: vessels/${c.slug}.html`);
 }
 
-console.log('All vessel pages generated successfully!');
+// Update header in all html files to show Vessels ▾ instead of Products
+function updateAllHTMLForVesselsHeader(dir) {
+  const files = fs.readdirSync(dir);
+  for (const file of files) {
+    const fullPath = path.join(dir, file);
+    if (fs.statSync(fullPath).isDirectory()) {
+      updateAllHTMLForVesselsHeader(fullPath);
+    } else if (file.endsWith('.html')) {
+      let content = fs.readFileSync(fullPath, 'utf8');
+      
+      // Update header link label from Products to Vessels
+      content = content.replace(/Products <span class="arrow-down">▾<\/span>/g, 'Vessels <span class="arrow-down">▾</span>');
+      content = content.replace(/<a href="\/vessels" class="dropdown-toggle-link">Products/g, '<a href="/vessels" class="dropdown-toggle-link">Vessels');
+      
+      // Update dropdown list items to match Amal's 6 categories
+      const oldDropdownPattern = /<ul class="sub-dropdown-menu">[\s\S]*?<\/ul>/g;
+      const newDropdownHTML = `<ul class="sub-dropdown-menu">
+                                    <li class="dropdown-header-title">Vessel Categories</li>
+                                    <li><a href="/vessels">All Vessel Fleet</a></li>
+                                    <li><a href="/vessels/house-boats">House Boats</a></li>
+                                    <li><a href="/vessels/tourist-boats">Tourist Boats</a></li>
+                                    <li><a href="/vessels/work-boats">Work Boats</a></li>
+                                    <li><a href="/vessels/tugs">Tugs</a></li>
+                                    <li><a href="/vessels/fishing-boats">Fishing Boats</a></li>
+                                    <li><a href="/vessels/cruise-boats">Cruise Boats</a></li>
+                                </ul>`;
+      
+      if (content.includes('class="sub-dropdown-menu"')) {
+        content = content.replace(oldDropdownPattern, newDropdownHTML);
+      }
+      
+      fs.writeFileSync(fullPath, content, 'utf8');
+    }
+  }
+}
+
+updateAllHTMLForVesselsHeader(PUBLIC_DIR);
+console.log('Updated all HTML files for Vessels ▾ header and Amal\'s 6 categories!');
