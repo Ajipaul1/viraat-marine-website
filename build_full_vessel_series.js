@@ -8,7 +8,7 @@ if (!fs.existsSync(VESSELS_DIR)) {
   fs.mkdirSync(VESSELS_DIR, { recursive: true });
 }
 
-// 15 Master Categories from Excel with distinct image paths
+// 15 Master Categories with 100% Unique Image Paths
 const MASTER_VESSEL_SERIES = [
   {
     group: 'tourism',
@@ -113,7 +113,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'ro-ro-barges',
     name: 'Barge (RO-RO)',
     tagline: '50 to 120 Tonne Vehicular Heavy Duty Barges',
-    img: '/public/2_FrontEnd/img/vessels/workmax_28.png',
+    img: '/public/2_FrontEnd/img/vessels/ro_ro_barges.png',
     desc: 'Heavy-duty Roll-on/Roll-off (Ro-Ro) vehicular transportation barges built for heavy trucks, equipment, and river ferry crossings.',
     specs: [
       { label: 'Tonnage Options', val: '50 Ton, 80 Ton, 120 Ton' },
@@ -127,7 +127,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'tug-boats',
     name: 'Tugs & Towage Craft',
     tagline: 'Harbor & Ocean ASD Towing Vessels',
-    img: '/public/2_FrontEnd/img/vessels/tug_3200.png',
+    img: '/public/2_FrontEnd/img/vessels/tug_boats.png',
     desc: 'High bollard pull Azimuth Stern Drive (ASD) tugboats built for ship assist, port towage, and offshore escort operations.',
     specs: [
       { label: 'Bollard Pull', val: '30 to 70 Tonnes Pull' },
@@ -141,7 +141,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'fishing-vessels',
     name: 'Fishing Vessels',
     tagline: 'Trawlers, Gillnetters & Traditional Vanji Boats',
-    img: '/public/2_FrontEnd/img/vessels/sentinel_18.png',
+    img: '/public/2_FrontEnd/img/vessels/fishing_vessels.png',
     desc: 'Commercial deep-sea fishing craft including mechanized Trawlers, Gillnetters, and reinforced Vanji fishing boats.',
     specs: [
       { label: 'Vessel Types', val: 'Trawler, Gillnetter, Vanji' },
@@ -155,7 +155,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'floating-cottages',
     name: 'Floating Cottages',
     tagline: '1, 2 & 4 Bedroom Floating Eco-Resort Units',
-    img: '/public/2_FrontEnd/img/vessels/house_boats.png',
+    img: '/public/2_FrontEnd/img/vessels/floating_cottages.png',
     desc: 'Stationary floating resort cottages designed for eco-tourism hubs, featuring 1, 2, and 4 bedroom waterfront living spaces.',
     specs: [
       { label: 'Bedroom Options', val: '1, 2, 4 Deluxe Bedrooms' },
@@ -169,7 +169,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'floating-restaurant',
     name: 'Floating Restaurant',
     tagline: 'Multi-Deck Floating Dining & Event Venues',
-    img: '/public/2_FrontEnd/img/vessels/passenger_ferries.png',
+    img: '/public/2_FrontEnd/img/vessels/floating_restaurant.png',
     desc: 'Commercial multi-deck floating restaurants designed for waterfront dining, banquet halls, and corporate receptions.',
     specs: [
       { label: 'Seating Capacity', val: '100 to 300 Dining Guests' },
@@ -183,7 +183,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'floating-lodge',
     name: 'Floating Lodge',
     tagline: '20 & 50 Pax Floating Hotel Accommodation',
-    img: '/public/2_FrontEnd/img/vessels/house_boats.png',
+    img: '/public/2_FrontEnd/img/vessels/floating_lodge.png',
     desc: 'Large floating accommodation lodges designed for remote resort locations, offshore projects, and hospitality operators.',
     specs: [
       { label: 'Pax Capacity', val: '20 & 50 Pax Lodging' },
@@ -197,7 +197,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'car-boats',
     name: 'Car Boat Series',
     tagline: 'Sedan, Hatchback & SUV Water-Cars',
-    img: '/public/2_FrontEnd/img/vessels/speed_boats.png',
+    img: '/public/2_FrontEnd/img/vessels/car_boats.png',
     desc: 'Unique amphibious and car-styled watercraft designed in Sedan, Hatchback, and SUV automobile shapes for theme parks and rental operations.',
     specs: [
       { label: 'Models Available', val: 'Sedan, Hatchback, SUV Water-Cars' },
@@ -211,7 +211,7 @@ const MASTER_VESSEL_SERIES = [
     slug: 'adventure-innovative-boats',
     name: 'Adventure & Innovative Craft',
     tagline: 'Kayaks, Canoes, Pedal Boats & Pool Houseboats',
-    img: '/public/2_FrontEnd/img/vessels/ctv_24.png',
+    img: '/public/2_FrontEnd/img/vessels/adventure_innovative_boats.png',
     desc: 'Viraat Marine innovative custom craft lineup including Kayaks, Canoes, Dinghies, Pedal Boats, and Houseboats equipped with onboard Swimming Pools.',
     specs: [
       { label: 'Craft Types', val: 'Kayak, Canoe, Dinghy, Pedal Boat' },
@@ -358,8 +358,8 @@ const VESSELS_MAIN_HTML = `<!doctype html>
     <link rel="icon" href="/public/2_FrontEnd/img/favico.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=6">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=6">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=7">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=7">
 </head>
 <body id="body" class="light-mode">
 
@@ -422,8 +422,8 @@ for (const c of MASTER_VESSEL_SERIES) {
     <link rel="icon" href="/public/2_FrontEnd/img/favico.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=6">
-    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=6">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=7">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=7">
 </head>
 <body id="body" class="light-mode">
 
@@ -479,4 +479,4 @@ for (const c of MASTER_VESSEL_SERIES) {
   fs.writeFileSync(path.join(VESSELS_DIR, c.slug + '.html'), CATEGORY_HTML, 'utf8');
 }
 
-console.log('Successfully re-built all 15 master vessel pages with authentic realistic image paths!');
+console.log('Successfully re-built all 15 master vessel pages with 100% unique image paths!');
