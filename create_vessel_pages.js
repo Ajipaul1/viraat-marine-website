@@ -1,0 +1,426 @@
+const fs = require('fs');
+const path = require('path');
+
+const PUBLIC_DIR = path.join(__dirname, 'public');
+const VESSELS_DIR = path.join(PUBLIC_DIR, 'vessels');
+
+if (!fs.existsSync(VESSELS_DIR)) {
+  fs.mkdirSync(VESSELS_DIR, { recursive: true });
+}
+
+// Common Header HTML
+const HEADER_HTML = `
+    <header class="main_nav_header">
+        <div class="container-fluid p-0">
+            <div class="row g-0">
+                <div class="col-lg-3">
+                    <div class="logo-block">
+                        <a href="/" class="logo">
+                            <img src="/public/2_FrontEnd/img/logo-white.png" class="img-fluid" alt="Viraat Marine">
+                            <img src="/public/2_FrontEnd/img/logo.png" class="img-fluid logo-mobile" alt="Viraat Marine">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-9 position-relative">
+                    <div class="mobile-view">
+                        <ul>
+                            <li>
+                                <span class="navbar-mob"><img src="/public/2_FrontEnd/img/bars.png" class="img-fluid" alt=""></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="header-bottom-right">
+                        <span class="close-ico"><img src="/public/2_FrontEnd/img/close.svg" class="img-fluid" alt=""></span>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li class="dropdown-item-wrapper">
+                                <a href="/vessels" class="dropdown-toggle-link active">Products <span class="arrow-down">▾</span></a>
+                                <ul class="sub-dropdown-menu">
+                                    <li class="dropdown-header-title">Vessel Categories</li>
+                                    <li><a href="/vessels">All Fleet Overview</a></li>
+                                    <li><a href="/vessels/crew-transfer-vessel">Crew Transfer Vessels (CTV)</a></li>
+                                    <li><a href="/vessels/ocean-tugboat">Ocean & Harbor Tugs</a></li>
+                                    <li><a href="/vessels/patrol-craft">High-Speed Patrol Craft</a></li>
+                                    <li><a href="/vessels/passenger-ferry">Catamaran Ferries</a></li>
+                                    <li><a href="/vessels/utility-workboat">Multipurpose Workboats</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/services">Services</a></li>
+                            <li><a href="/career">Career</a></li>
+                            <li><a href="/contact" class="primary-btn">Contact us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+`;
+
+// Common Footer HTML
+const FOOTER_HTML = `
+    <footer class="footer-bg position-relative">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <a href="/" class="footer-logo"><img src="/public/2_FrontEnd/img/logo-white.png" class="img-fluid mb-3" style="max-width:200px" alt="Viraat Marine"></a>
+                        <p style="color:#cbd5e1; font-size:15px;">ISO 9001:2015 and ISO 14001:2015 certified marine design, naval architecture, and boat building firm delivering world-class offshore vessels.</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <h4 style="color:#0fbed2; font-weight:700; margin-bottom:20px;">Quick Links</h4>
+                        <ul style="list-style:none; padding:0;">
+                            <li class="mb-2"><a href="/" style="color:#fff; text-decoration:none;">Home</a></li>
+                            <li class="mb-2"><a href="/about" style="color:#fff; text-decoration:none;">About Us</a></li>
+                            <li class="mb-2"><a href="/vessels" style="color:#0fbed2; text-decoration:none;">Products / Vessels</a></li>
+                            <li class="mb-2"><a href="/services" style="color:#fff; text-decoration:none;">Services</a></li>
+                            <li class="mb-2"><a href="/career" style="color:#fff; text-decoration:none;">Careers</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <h4 style="color:#0fbed2; font-weight:700; margin-bottom:20px;">Corporate Office</h4>
+                        <p style="color:#cbd5e1; font-size:15px;">61/2579, 2nd Floor, Pattoor Chambers,<br>Alappat Cross Road, Perumanoor,<br>Kochi, Kerala, India - 682016</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-widget">
+                        <h4 style="color:#0fbed2; font-weight:700; margin-bottom:20px;">Contact Us</h4>
+                        <p style="color:#cbd5e1; font-size:15px;">📞 +91 8075 785 379<br>✉️ operations@viraatmarine.com<br>✉️ amal.binoy@viraatmarine.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4 style-border-top" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                <div class="col-md-12 text-center">
+                    <p style="color:#94a3b8; font-size:14px;">© ${new Date().getFullYear()} Viraat Marine Pvt Ltd. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+`;
+
+// 1. Generate Fleet Overview Page (vessels.html)
+const VESSELS_HTML_CONTENT = `<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Products & Vessel Fleet | Viraat Marine</title>
+    <meta name="description" content="Explore Viraat Marine's custom vessel fleet including Crew Transfer Vessels (CTV), Ocean Tugs, High-Speed Patrol Craft, Catamaran Ferries, and Utility Workboats.">
+    <link rel="icon" href="/public/2_FrontEnd/img/favico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=2">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=2">
+</head>
+<body id="body" class="light-mode" style="background:#051329; color:#fff;">
+
+    ${HEADER_HTML}
+
+    <!-- Hero Header Banner -->
+    <section style="background: linear-gradient(135deg, rgba(9, 29, 62, 0.95), rgba(5, 19, 41, 0.98)), url('/public/2_FrontEnd/img/banner-2.webp') center/cover; padding: 160px 0 80px 0; text-align: center; border-bottom: 1px solid rgba(15, 190, 210, 0.2);">
+        <div class="container">
+            <h1 style="font-size: 52px; font-weight: 800; color: #fff; margin-bottom: 20px;">Viraat Marine Fleet & Vessel Portfolio</h1>
+            <p style="font-size: 20px; color: #94a3b8; max-width: 800px; margin: 0 auto 30px auto;">State-of-the-art naval architecture, custom aluminium & steel hull engineering, and classification-certified vessel designs built for superior sea performance.</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="#vessels-grid" class="primary-btn" style="background:#0fbed2; color:#091d3e; font-weight:700;">Explore Vessel Models</a>
+                <a href="/contact" class="primary-btn" style="border: 1px solid #0fbed2; color:#0fbed2; background:transparent;">Request Custom Vessel Design</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vessel Grid Section -->
+    <section id="vessels-grid" class="common-section-pad" style="padding: 80px 0;">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 m-auto text-center">
+                    <span class="sub-head" style="color:#0fbed2; text-transform:uppercase; letter-spacing:2px; font-weight:700;">Engineered For Excellence</span>
+                    <h2 style="color:#fff; font-size:42px; font-weight:800; margin-top:10px;">Our Premium Vessel Lineup</h2>
+                    <p style="color:#94a3b8; font-size:17px;">Select a vessel model below to view full technical specifications, general arrangement, and operational capabilities.</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+
+                <!-- Vessel 1: CTV-24 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="vessel-card">
+                        <div class="vessel-img-wrapper">
+                            <img src="/public/2_FrontEnd/img/vessels/ctv_24.png" alt="Viraat CTV-24 Crew Transfer Vessel">
+                            <span class="vessel-badge">Crew Transfer</span>
+                        </div>
+                        <div class="vessel-card-body">
+                            <h3>Viraat CTV-24</h3>
+                            <p>24m High-Speed Offshore Crew Transfer Catamaran designed for offshore wind farm and rig transfer operations with maximum comfort and stability.</p>
+                            <div class="vessel-specs-grid">
+                                <div class="spec-item"><strong>Length (LOA)</strong> 24.5 Meters</div>
+                                <div class="spec-item"><strong>Max Speed</strong> 28 Knots</div>
+                                <div class="spec-item"><strong>Capacity</strong> 24 Technicians</div>
+                                <div class="spec-item"><strong>Hull Material</strong> Aluminium 5083</div>
+                            </div>
+                            <a href="/vessels/crew-transfer-vessel" class="btn-vessel-details">View Full Specifications ➔</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vessel 2: Tug-3200 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="vessel-card">
+                        <div class="vessel-img-wrapper">
+                            <img src="/public/2_FrontEnd/img/vessels/tug_3200.png" alt="Viraat Tug-3200 Ocean Tugboat">
+                            <span class="vessel-badge">Ocean Tugboat</span>
+                        </div>
+                        <div class="vessel-card-body">
+                            <h3>Viraat Tug-3200</h3>
+                            <p>32m 70-Ton Bollard Pull ASD Ocean Tugboat built for heavy ship handling, ocean towage, escort duties, and emergency response operations.</p>
+                            <div class="vessel-specs-grid">
+                                <div class="spec-item"><strong>Length (LOA)</strong> 32.0 Meters</div>
+                                <div class="spec-item"><strong>Bollard Pull</strong> 70 Tonnes</div>
+                                <div class="spec-item"><strong>Engine Power</strong> 2 x 2000 kW</div>
+                                <div class="spec-item"><strong>Hull Material</strong> Grade A Steel</div>
+                            </div>
+                            <a href="/vessels/ocean-tugboat" class="btn-vessel-details">View Full Specifications ➔</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vessel 3: Sentinel-18 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="vessel-card">
+                        <div class="vessel-img-wrapper">
+                            <img src="/public/2_FrontEnd/img/vessels/sentinel_18.png" alt="Viraat Sentinel-18 Patrol Craft">
+                            <span class="vessel-badge">Patrol Craft</span>
+                        </div>
+                        <div class="vessel-card-body">
+                            <h3>Viraat Sentinel-18</h3>
+                            <p>18m High-Speed Tactical Coastal Patrol & Interceptor Vessel equipped with advanced surveillance radar and high-maneuverability deep-V hull.</p>
+                            <div class="vessel-specs-grid">
+                                <div class="spec-item"><strong>Length (LOA)</strong> 18.2 Meters</div>
+                                <div class="spec-item"><strong>Max Speed</strong> 42 Knots</div>
+                                <div class="spec-item"><strong>Range</strong> 450 NM</div>
+                                <div class="spec-item"><strong>Hull Material</strong> Marine Aluminium</div>
+                            </div>
+                            <a href="/vessels/patrol-craft" class="btn-vessel-details">View Full Specifications ➔</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vessel 4: Pass-120 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="vessel-card">
+                        <div class="vessel-img-wrapper">
+                            <img src="/public/2_FrontEnd/img/vessels/pass_120.png" alt="Viraat Pass-120 Passenger Ferry">
+                            <span class="vessel-badge">Passenger Ferry</span>
+                        </div>
+                        <div class="vessel-card-body">
+                            <h3>Viraat Pass-120</h3>
+                            <p>35m Low-Wash High-Capacity Catamaran Passenger Ferry featuring air-conditioned interior seating, panoramic views, and eco-efficient engines.</p>
+                            <div class="vessel-specs-grid">
+                                <div class="spec-item"><strong>Length (LOA)</strong> 35.0 Meters</div>
+                                <div class="spec-item"><strong>Capacity</strong> 120 Passengers</div>
+                                <div class="spec-item"><strong>Service Speed</strong> 22 Knots</div>
+                                <div class="spec-item"><strong>Hull Material</strong> Composite / Alum</div>
+                            </div>
+                            <a href="/vessels/passenger-ferry" class="btn-vessel-details">View Full Specifications ➔</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vessel 5: WorkMax-28 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="vessel-card">
+                        <div class="vessel-img-wrapper">
+                            <img src="/public/2_FrontEnd/img/vessels/workmax_28.png" alt="Viraat WorkMax-28 Utility Workboat">
+                            <span class="vessel-badge">Utility Workboat</span>
+                        </div>
+                        <div class="vessel-card-body">
+                            <h3>Viraat WorkMax-28</h3>
+                            <p>28m Multipurpose Offshore Support & Utility Workboat equipped with deck crane, A-frame mount, AHT winch, and clear deck cargo space.</p>
+                            <div class="vessel-specs-grid">
+                                <div class="spec-item"><strong>Length (LOA)</strong> 28.4 Meters</div>
+                                <div class="spec-item"><strong>Deck Cargo</strong> 45 Tonnes</div>
+                                <div class="spec-item"><strong>Crane Capacity</strong> 15 T/m</div>
+                                <div class="spec-item"><strong>Hull Material</strong> Heavy Duty Steel</div>
+                            </div>
+                            <a href="/vessels/utility-workboat" class="btn-vessel-details">View Full Specifications ➔</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    ${FOOTER_HTML}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+`;
+
+fs.writeFileSync(path.join(PUBLIC_DIR, 'vessels.html'), VESSELS_HTML_CONTENT, 'utf8');
+console.log('Created vessels.html Fleet Overview Page');
+
+// 2. Generate 5 Detail Pages
+const VESSEL_DETAILS_DATA = [
+  {
+    slug: 'crew-transfer-vessel.html',
+    title: 'Viraat CTV-24 | Crew Transfer Vessel',
+    name: 'Viraat CTV-24',
+    type: 'Offshore Crew Transfer Catamaran',
+    img: '/public/2_FrontEnd/img/vessels/ctv_24.png',
+    desc: 'The Viraat CTV-24 is a 24.5-meter high-speed catamaran specifically engineered for safe and efficient technician transfer to offshore wind farms, oil platforms, and marine installations.',
+    loa: '24.50 m',
+    beam: '8.20 m',
+    draft: '1.45 m',
+    speed: '28 Knots (Max) / 24 Knots (Service)',
+    capacity: '24 Industrial Personnel + 4 Crew',
+    engine: '2 x MAN D2862 LE463 (1029 kW @ 2100 rpm)',
+    hull: 'Aluminium Alloy 5083 H116',
+    class: 'DNV / Bureau Veritas / IRS Offshore Service'
+  },
+  {
+    slug: 'ocean-tugboat.html',
+    title: 'Viraat Tug-3200 | ASD Ocean Tugboat',
+    name: 'Viraat Tug-3200',
+    type: 'Azimuth Stern Drive (ASD) Ocean Tugboat',
+    img: '/public/2_FrontEnd/img/vessels/tug_3200.png',
+    desc: 'The Viraat Tug-3200 is a heavy-duty 70-Ton bollard pull ASD tugboat designed for ship assist, offshore terminal towing, escort operations, and fire-fighting response.',
+    loa: '32.00 m',
+    beam: '11.50 m',
+    draft: '4.80 m',
+    speed: '13.5 Knots',
+    capacity: '70 Tonnes Bollard Pull',
+    engine: '2 x Niigata 6L28AHX (2000 kW each)',
+    hull: 'Grade A Shipbuilding Steel',
+    class: 'IRS / ABS / DNV Tug + FiFi 1'
+  },
+  {
+    slug: 'patrol-craft.html',
+    title: 'Viraat Sentinel-18 | High-Speed Patrol Craft',
+    name: 'Viraat Sentinel-18',
+    type: 'High-Speed Tactical Interceptor Patrol Vessel',
+    img: '/public/2_FrontEnd/img/vessels/sentinel_18.png',
+    desc: 'Built for coast guard, maritime police, and harbor security operations, the Viraat Sentinel-18 delivers high-speed interception capabilities with exceptional sea-keeping performance.',
+    loa: '18.20 m',
+    beam: '4.60 m',
+    draft: '0.95 m',
+    speed: '42 Knots (Max)',
+    capacity: '6 Tactical Crew + 8 Troops',
+    engine: '2 x HamiltonJet Waterjets with Caterpillar C18 Engines',
+    hull: 'Marine Grade Aluminium Alloys',
+    class: 'IRS / Lloyd\'s Register Patrol Craft'
+  },
+  {
+    slug: 'passenger-ferry.html',
+    title: 'Viraat Pass-120 | Catamaran Passenger Ferry',
+    name: 'Viraat Pass-120',
+    type: 'Low-Wash High-Speed Catamaran Passenger Ferry',
+    img: '/public/2_FrontEnd/img/vessels/pass_120.png',
+    desc: 'Designed for coastal and inter-island passenger transportation, the Viraat Pass-120 combines spacious air-conditioned seating with low wake wash for environmental protection.',
+    loa: '35.00 m',
+    beam: '9.50 m',
+    draft: '1.20 m',
+    speed: '22 Knots (Service Speed)',
+    capacity: '120 Passengers + 6 Crew',
+    engine: '2 x Scania DI16 076M (552 kW @ 2100 rpm)',
+    hull: 'Lightweight Composite / Marine Aluminium',
+    class: 'IRS High-Speed Passenger Craft'
+  },
+  {
+    slug: 'utility-workboat.html',
+    title: 'Viraat WorkMax-28 | Multipurpose Utility Workboat',
+    name: 'Viraat WorkMax-28',
+    type: 'Multipurpose Offshore Support & Utility Workboat',
+    img: '/public/2_FrontEnd/img/vessels/workmax_28.png',
+    desc: 'The Viraat WorkMax-28 is a versatile workhorse for marine construction, anchor handling, dive support, and heavy deck cargo transportation.',
+    loa: '28.40 m',
+    beam: '9.00 m',
+    draft: '2.50 m',
+    speed: '12.0 Knots',
+    capacity: '45 Tonnes Clear Deck Space',
+    engine: '2 x Cummins KTA19-M3 (447 kW @ 1800 rpm)',
+    hull: 'Heavy Duty Structural Steel',
+    class: 'IRS Workboat Class'
+  }
+];
+
+for (const v of VESSEL_DETAILS_DATA) {
+  const DETAIL_HTML = `<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${v.title} | Viraat Marine</title>
+    <meta name="description" content="${v.desc}">
+    <link rel="icon" href="/public/2_FrontEnd/img/favico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/style.css?version=2">
+    <link rel="stylesheet" href="/public/2_FrontEnd/css/media.css?version=2">
+</head>
+<body id="body" class="light-mode" style="background:#051329; color:#fff;">
+
+    ${HEADER_HTML}
+
+    <!-- Hero Header Banner -->
+    <section style="background: linear-gradient(135deg, rgba(9, 29, 62, 0.95), rgba(5, 19, 41, 0.98)), url('${v.img}') center/cover; padding: 160px 0 80px 0; border-bottom: 1px solid rgba(15, 190, 210, 0.2);">
+        <div class="container">
+            <a href="/vessels" style="color:#0fbed2; text-decoration:none; font-weight:600; display:inline-block; margin-bottom:15px;">⬅ Back to All Vessels</a>
+            <h1 style="font-size: 48px; font-weight: 800; color: #fff; margin-bottom: 15px;">${v.name}</h1>
+            <p style="font-size: 20px; color: #0fbed2; font-weight:600;">${v.type}</p>
+        </div>
+    </section>
+
+    <!-- Details Section -->
+    <section class="common-section-pad" style="padding: 80px 0;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div style="border-radius:12px; overflow:hidden; border:1px solid rgba(15,190,210,0.3); box-shadow:0 15px 35px rgba(0,0,0,0.4);">
+                        <img src="${v.img}" alt="${v.name}" class="img-fluid w-100">
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <h2 style="color:#fff; font-size:32px; font-weight:700; margin-bottom:20px;">Vessel Overview</h2>
+                    <p style="color:#94a3b8; font-size:17px; line-height:1.7; margin-bottom:30px;">${v.desc}</p>
+                    
+                    <h3 style="color:#0fbed2; font-size:22px; font-weight:700; margin-bottom:20px;">General Parameters & Specifications</h3>
+                    <table class="table table-dark table-striped" style="border: 1px solid rgba(15, 190, 210, 0.2);">
+                        <tbody>
+                            <tr><td style="color:#94a3b8;">Length Overall (LOA)</td><td style="color:#fff; font-weight:600;">${v.loa}</td></tr>
+                            <tr><td style="color:#94a3b8;">Beam Overall</td><td style="color:#fff; font-weight:600;">${v.beam}</td></tr>
+                            <tr><td style="color:#94a3b8;">Draft</td><td style="color:#fff; font-weight:600;">${v.draft}</td></tr>
+                            <tr><td style="color:#94a3b8;">Speed Performance</td><td style="color:#fff; font-weight:600;">${v.speed}</td></tr>
+                            <tr><td style="color:#94a3b8;">Capacity / Payload</td><td style="color:#fff; font-weight:600;">${v.capacity}</td></tr>
+                            <tr><td style="color:#94a3b8;">Main Propulsion</td><td style="color:#fff; font-weight:600;">${v.engine}</td></tr>
+                            <tr><td style="color:#94a3b8;">Hull Material</td><td style="color:#fff; font-weight:600;">${v.hull}</td></tr>
+                            <tr><td style="color:#94a3b8;">Classification Standard</td><td style="color:#fff; font-weight:600;">${v.class}</td></tr>
+                        </tbody>
+                    </table>
+
+                    <div style="margin-top:35px;">
+                        <a href="/contact" class="primary-btn" style="background:#0fbed2; color:#091d3e; font-weight:700; padding:15px 35px; display:inline-block; font-size:16px;">Inquire About ${v.name} ➔</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    ${FOOTER_HTML}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+`;
+
+  fs.writeFileSync(path.join(VESSELS_DIR, v.slug), DETAIL_HTML, 'utf8');
+  console.log(`Created vessel detail page: vessels/${v.slug}`);
+}
+
+console.log('All vessel pages generated successfully!');
