@@ -92,37 +92,306 @@
     <section class="common-section-pad">
         <div class="container">
             
-                    <!-- Interactive 3D Real-Time Vessel Model Studio -->
+                    
+                    <!-- Advanced Interactive 3D Real-Time Vessel Studio -->
                     <div style="background:#091d3e; border:1px solid rgba(15,190,210,0.3); border-radius:12px; overflow:hidden; box-shadow:0 15px 35px rgba(0,0,0,0.4); margin-bottom:30px;">
-                        <div style="padding:15px 20px; background:rgba(5,19,41,0.9); border-bottom:1px solid rgba(15,190,210,0.2); display:flex; justify-content:space-between; align-items:center;">
-                            <span style="color:#0fbed2; font-weight:700; font-size:14px; text-transform:uppercase; letter-spacing:1px;">🎮 Interactive Real-Time 3D Vessel Studio</span>
-                            <span style="color:#cbd5e1; font-size:12px;">Drag mouse to rotate 360° | Scroll to Zoom</span>
+                        <div style="padding:15px 20px; background:rgba(5,19,41,0.95); border-bottom:1px solid rgba(15,190,210,0.2); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                            <span style="color:#0fbed2; font-weight:700; font-size:15px; text-transform:uppercase; letter-spacing:1px;">🎮 Viraat Marine Real-Time 3D Hull Studio</span>
+                            <div style="display:flex; gap:12px; align-items:center;">
+                                <span style="color:#94a3b8; font-size:12px; font-weight:600;">Lighting:</span>
+                                <button id="env-day" class="btn btn-xs btn-outline-info active" style="font-size:11px; padding:2px 8px;">☀️ Day</button>
+                                <button id="env-sunset" class="btn btn-xs btn-outline-warning" style="font-size:11px; padding:2px 8px;">🌅 Sunset</button>
+                                <button id="env-night" class="btn btn-xs btn-outline-light" style="font-size:11px; padding:2px 8px;">🌙 Night</button>
+                            </div>
                         </div>
                         
-                        <div id="vessel-3d-canvas-container" style="position:relative; width:100%; height:450px; background:radial-gradient(circle at center, #0a2552 0%, #030e21 100%); cursor:grab;">
-                            <!-- 3D Canvas element inserted here by Three.js -->
+                        <div id="vessel-3d-canvas-container" style="position:relative; width:100%; height:520px; background:radial-gradient(circle at center, #0b2b5c 0%, #030e21 100%); cursor:grab;">
+                            
+                            <!-- Hotspot Popups -->
+                            <div id="hotspot-popup" style="display:none; position:absolute; z-index:100; background:rgba(9,29,62,0.95); border:1px solid #0fbed2; padding:12px 16px; border-radius:8px; width:240px; box-shadow:0 10px 25px rgba(0,0,0,0.5); pointer-events:none;">
+                                <h6 id="pop-title" style="color:#0fbed2; font-weight:700; margin-bottom:4px; font-size:14px;"></h6>
+                                <p id="pop-desc" style="color:#e2e8f0; font-size:12px; margin:0; line-height:1.4;"></p>
+                            </div>
+
                             <div id="3d-loading-spinner" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#0fbed2; font-weight:600; text-align:center;">
                                 <div class="spinner-border text-info mb-2" role="status"></div>
-                                <div>Initializing Real-Time 3D Hull Engine...</div>
+                                <div>Loading High-Precision 3D Hull Geometry...</div>
                             </div>
                         </div>
 
                         <!-- 3D Studio Control Bar -->
-                        <div style="padding:12px 20px; background:rgba(5,19,41,0.95); border-top:1px solid rgba(15,190,210,0.2); display:flex; gap:10px; flex-wrap:wrap; justify-content:center; align-items:center;">
-                            <button id="btn-auto-rotate" class="btn btn-sm btn-outline-info" style="font-size:13px; font-weight:600;">🔄 Pause Auto-Rotate</button>
-                            <button id="btn-wireframe" class="btn btn-sm btn-outline-info" style="font-size:13px; font-weight:600;">📐 Toggle Structural Wireframe</button>
-                            <button id="btn-reset-view" class="btn btn-sm btn-outline-info" style="font-size:13px; font-weight:600;">🔍 Reset Camera View</button>
-                            <div style="display:flex; align-items:center; gap:8px; margin-left:10px;">
-                                <span style="color:#94a3b8; font-size:12px; font-weight:600;">Hull Trim:</span>
-                                <button id="color-cyan" style="width:20px; height:20px; border-radius:50%; background:#0fbed2; border:2px solid #fff; cursor:pointer;"></button>
-                                <button id="color-silver" style="width:20px; height:20px; border-radius:50%; background:#e2e8f0; border:2px solid #fff; cursor:pointer;"></button>
-                                <button id="color-black" style="width:20px; height:20px; border-radius:50%; background:#1e293b; border:2px solid #fff; cursor:pointer;"></button>
+                        <div style="padding:12px 20px; background:rgba(5,19,41,0.95); border-top:1px solid rgba(15,190,210,0.2); display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between; align-items:center;">
+                            <div style="display:flex; gap:8px;">
+                                <button id="btn-auto-rotate" class="btn btn-sm btn-outline-info" style="font-size:12px; font-weight:600;">🔄 Pause Rotate</button>
+                                <button id="btn-wireframe" class="btn btn-sm btn-outline-info" style="font-size:12px; font-weight:600;">📐 Wireframe</button>
+                                <button id="btn-reset-view" class="btn btn-sm btn-outline-info" style="font-size:12px; font-weight:600;">🔍 Reset Camera</button>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <span style="color:#94a3b8; font-size:12px; font-weight:600;">Hull Color:</span>
+                                <button id="color-cyan" style="width:22px; height:22px; border-radius:50%; background:#0fbed2; border:2px solid #fff; cursor:pointer;" title="Viraat Cyan"></button>
+                                <button id="color-white" style="width:22px; height:22px; border-radius:50%; background:#f8fafc; border:2px solid #fff; cursor:pointer;" title="Pearl White"></button>
+                                <button id="color-black" style="width:22px; height:22px; border-radius:50%; background:#0f172a; border:2px solid #fff; cursor:pointer;" title="Stealth Black"></button>
+                                <button id="color-red" style="width:22px; height:22px; border-radius:50%; background:#ef4444; border:2px solid #fff; cursor:pointer;" title="Racing Red"></button>
                             </div>
                         </div>
                     </div>
 
                     <!-- Three.js Engine & OrbitControls Scripts -->
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+                    <script>
+                        (function() {
+                            const container = document.getElementById('vessel-3d-canvas-container');
+                            const spinner = document.getElementById('3d-loading-spinner');
+                            const popup = document.getElementById('hotspot-popup');
+                            const popTitle = document.getElementById('pop-title');
+                            const popDesc = document.getElementById('pop-desc');
+                            
+                            // 1. Scene Setup
+                            const scene = new THREE.Scene();
+                            scene.fog = new THREE.FogExp2(0x030e21, 0.012);
+
+                            // 2. Camera Setup
+                            const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 1000);
+                            camera.position.set(16, 7, 18);
+
+                            // 3. Renderer Setup
+                            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                            renderer.setSize(container.clientWidth, container.clientHeight);
+                            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                            renderer.shadowMap.enabled = true;
+                            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                            container.appendChild(renderer.domElement);
+
+                            if (spinner) spinner.style.display = 'none';
+
+                            // 4. Orbit Controls
+                            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+                            controls.enableDamping = true;
+                            controls.dampingFactor = 0.05;
+                            controls.maxPolarAngle = Math.PI / 2 - 0.02;
+                            controls.minDistance = 5;
+                            controls.maxDistance = 35;
+                            controls.target.set(0, 1, 0);
+
+                            // 5. Lighting Setup
+                            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+                            scene.add(ambientLight);
+
+                            const sunLight = new THREE.DirectionalLight(0xffffff, 1.3);
+                            sunLight.position.set(20, 30, 15);
+                            sunLight.castShadow = true;
+                            scene.add(sunLight);
+
+                            const fillLight = new THREE.DirectionalLight(0x0fbed2, 0.4);
+                            fillLight.position.set(-20, 10, -15);
+                            scene.add(fillLight);
+
+                            const deckPointLight = new THREE.PointLight(0x0fbed2, 1.5, 15);
+                            deckPointLight.position.set(0, 3, 0);
+                            scene.add(deckPointLight);
+
+                            // 6. Materials
+                            let activeAccentColor = 0x0fbed2;
+                            const hullMat = new THREE.MeshStandardMaterial({ color: 0x091d3e, roughness: 0.15, metalness: 0.85 });
+                            const trimMat = new THREE.MeshStandardMaterial({ color: activeAccentColor, roughness: 0.1, metalness: 0.9 });
+                            const teakMat = new THREE.MeshStandardMaterial({ color: 0x854d0e, roughness: 0.7, metalness: 0.1 });
+                            const glassMat = new THREE.MeshPhysicalMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.45, roughness: 0.05, transmission: 0.95, thickness: 0.4 });
+                            const chromeMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.05, metalness: 0.95 });
+                            const seatMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.4 });
+
+                            // 7. High-Precision Speedboat Geometry Construction
+                            const vesselGroup = new THREE.Group();
+
+                            // 7a. Deep-V Hull Profile
+                            const hullShape = new THREE.Shape();
+                            hullShape.moveTo(0, 1.6);
+                            hullShape.lineTo(4.5, 1.4);
+                            hullShape.lineTo(8.5, 0.2);
+                            hullShape.lineTo(4.5, -1.3);
+                            hullShape.lineTo(0, -1.6);
+                            hullShape.lineTo(-7.5, -1.6);
+                            hullShape.lineTo(-7.5, 1.6);
+                            hullShape.closePath();
+
+                            const extrudeSettings = { depth: 2.4, bevelEnabled: true, bevelSegments: 4, steps: 3, bevelSize: 0.35, bevelThickness: 0.35 };
+                            const hullGeo = new THREE.ExtrudeGeometry(hullShape, extrudeSettings);
+                            hullGeo.rotateX(Math.PI / 2);
+                            hullGeo.center();
+                            const hullMesh = new THREE.Mesh(hullGeo, hullMat);
+                            hullMesh.castShadow = true;
+                            hullMesh.receiveShadow = true;
+                            vesselGroup.add(hullMesh);
+
+                            // 7b. Teak Wood Decking Floor
+                            const deckGeo = new THREE.BoxGeometry(14, 0.1, 2.3);
+                            const deckMesh = new THREE.Mesh(deckGeo, teakMat);
+                            deckMesh.position.set(-0.5, 0.75, 0);
+                            vesselGroup.add(deckMesh);
+
+                            // 7c. Accent Hull Stripe
+                            const stripeGeo = new THREE.BoxGeometry(15.5, 0.35, 2.5);
+                            const stripeMesh = new THREE.Mesh(stripeGeo, trimMat);
+                            stripeMesh.position.set(0, 0.3, 0);
+                            vesselGroup.add(stripeMesh);
+
+                            // 7d. Cockpit Superstructure & Console
+                            const cabinGeo = new THREE.BoxGeometry(6.5, 1.8, 2.1);
+                            const cabinMesh = new THREE.Mesh(cabinGeo, hullMat);
+                            cabinMesh.position.set(-1.2, 1.6, 0);
+                            vesselGroup.add(cabinMesh);
+
+                            // 7e. Sport Bucket Seats (4 Seats)
+                            const seatGeo = new THREE.BoxGeometry(0.7, 0.8, 0.7);
+                            for (let xOff of [-2.2, -0.6]) {
+                                for (let zOff of [-0.6, 0.6]) {
+                                    const seat = new THREE.Mesh(seatGeo, seatMat);
+                                    seat.position.set(xOff, 1.6, zOff);
+                                    vesselGroup.add(seat);
+                                }
+                            }
+
+                            // 7f. Aerodynamic Curved Glass Windshield
+                            const winGeo = new THREE.BoxGeometry(5.5, 1.1, 2.2);
+                            const winMesh = new THREE.Mesh(winGeo, glassMat);
+                            winMesh.position.set(-0.8, 1.9, 0);
+                            vesselGroup.add(winMesh);
+
+                            const winFrameGeo = new THREE.BoxGeometry(5.6, 0.1, 2.25);
+                            const winFrameMesh = new THREE.Mesh(winFrameGeo, chromeMat);
+                            winFrameMesh.position.set(-0.8, 2.45, 0);
+                            vesselGroup.add(winFrameMesh);
+
+                            // 7g. Stainless Steel Bow Safety Rails
+                            const railGeo = new THREE.CylinderGeometry(0.04, 0.04, 8, 8);
+                            const railLeft = new THREE.Mesh(railGeo, chromeMat);
+                            railLeft.rotation.z = Math.PI / 2;
+                            railLeft.position.set(3.5, 1.4, 1.1);
+                            vesselGroup.add(railLeft);
+
+                            const railRight = new THREE.Mesh(railGeo, chromeMat);
+                            railRight.rotation.z = Math.PI / 2;
+                            railRight.position.set(3.5, 1.4, -1.1);
+                            vesselGroup.add(railRight);
+
+                            // 7h. Dual High-Power Outboard Motors
+                            const engineMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.2, metalness: 0.8 });
+                            const propMat = new THREE.MeshStandardMaterial({ color: 0xf1f5f9, roughness: 0.1, metalness: 0.95 });
+
+                            function createOutboardEngine(zPos) {
+                                const engGroup = new THREE.Group();
+                                const bodyGeo = new THREE.BoxGeometry(1.1, 1.8, 0.65);
+                                const bodyMesh = new THREE.Mesh(bodyGeo, engineMat);
+                                engGroup.add(bodyMesh);
+
+                                const capGeo = new THREE.BoxGeometry(1.2, 0.6, 0.7);
+                                const capMesh = new THREE.Mesh(capGeo, trimMat);
+                                capMesh.position.y = 0.8;
+                                engGroup.add(capMesh);
+
+                                const propGeo = new THREE.CylinderGeometry(0.35, 0.35, 0.1, 6);
+                                const propMesh = new THREE.Mesh(propGeo, propMat);
+                                propMesh.rotation.x = Math.PI / 2;
+                                propMesh.position.set(-0.6, -0.7, 0);
+                                engGroup.add(propMesh);
+
+                                engGroup.position.set(-8.3, 0.3, zPos);
+                                return engGroup;
+                            }
+
+                            vesselGroup.add(createOutboardEngine(0.75));
+                            vesselGroup.add(createOutboardEngine(-0.75));
+
+                            // Position Vessel Group
+                            vesselGroup.position.y = 0.5;
+                            scene.add(vesselGroup);
+
+                            // 8. Animated Ocean Water Grid Plane
+                            const waterGeo = new THREE.PlaneGeometry(120, 120, 48, 48);
+                            const waterMat = new THREE.MeshStandardMaterial({ color: 0x052e5e, roughness: 0.1, metalness: 0.85, transparent: true, opacity: 0.8 });
+                            const waterPlane = new THREE.Mesh(waterGeo, waterMat);
+                            waterPlane.rotation.x = -Math.PI / 2;
+                            waterPlane.position.y = -0.6;
+                            scene.add(waterPlane);
+
+                            // 9. Interactive 3D Hotspots
+                            const hotspots = [
+                                { pos: new THREE.Vector3(-8.3, 1.2, 0.75), title: "Dual 300HP Outboards", desc: "Twin high-performance V6 marine outboard engines delivering 42+ knots top speed." },
+                                { pos: new THREE.Vector3(3.5, 0.5, 0), title: "Deep-V Aluminium Hull", desc: "5083 H116 marine alloy hull with 24° deadrise for smooth wave slicing." },
+                                { pos: new THREE.Vector3(-1.2, 2.5, 0), title: "Ergonomic Sports Cockpit", desc: "Four leather bucket seats, Garmin MFD displays, and tinted windshield." }
+                            ];
+
+                            // 10. Buttons & Controls Handlers
+                            let autoRotate = true;
+                            document.getElementById('btn-auto-rotate').addEventListener('click', function() {
+                                autoRotate = !autoRotate;
+                                this.innerHTML = autoRotate ? '🔄 Pause Rotate' : '▶ Play Rotate';
+                            });
+
+                            let wireframeMode = false;
+                            document.getElementById('btn-wireframe').addEventListener('click', function() {
+                                wireframeMode = !wireframeMode;
+                                hullMat.wireframe = wireframeMode;
+                                trimMat.wireframe = wireframeMode;
+                                cabinMesh.material.wireframe = wireframeMode;
+                            });
+
+                            document.getElementById('btn-reset-view').addEventListener('click', function() {
+                                camera.position.set(16, 7, 18);
+                                controls.target.set(0, 1, 0);
+                                controls.reset();
+                            });
+
+                            document.getElementById('color-cyan').addEventListener('click', () => { trimMat.color.setHex(0x0fbed2); });
+                            document.getElementById('color-white').addEventListener('click', () => { trimMat.color.setHex(0xf8fafc); });
+                            document.getElementById('color-black').addEventListener('click', () => { trimMat.color.setHex(0x0f172a); });
+                            document.getElementById('color-red').addEventListener('click', () => { trimMat.color.setHex(0xef4444); });
+
+                            // Lighting Environment Modes
+                            document.getElementById('env-day').addEventListener('click', function() {
+                                sunLight.intensity = 1.3;
+                                sunLight.color.setHex(0xffffff);
+                                scene.fog.color.setHex(0x030e21);
+                            });
+                            document.getElementById('env-sunset').addEventListener('click', function() {
+                                sunLight.intensity = 1.8;
+                                sunLight.color.setHex(0xf97316);
+                                scene.fog.color.setHex(0x431407);
+                            });
+                            document.getElementById('env-night').addEventListener('click', function() {
+                                sunLight.intensity = 0.2;
+                                sunLight.color.setHex(0x38bdf8);
+                                scene.fog.color.setHex(0x020617);
+                            });
+
+                            // 11. Animation Loop
+                            const clock = new THREE.Clock();
+                            function animate() {
+                                requestAnimationFrame(animate);
+                                const time = clock.getElapsedTime();
+
+                                if (autoRotate) {
+                                    vesselGroup.rotation.y += 0.007;
+                                }
+
+                                // Realistic Flotation Wave Pitch & Roll Motion
+                                vesselGroup.position.y = 0.5 + Math.sin(time * 2.2) * 0.12;
+                                vesselGroup.rotation.z = Math.sin(time * 1.6) * 0.025;
+
+                                controls.update();
+                                renderer.render(scene, camera);
+                            }
+                            animate();
+
+                            // Window Resize Handler
+                            window.addEventListener('resize', function() {
+                                camera.aspect = container.clientWidth / container.clientHeight;
+                                camera.updateProjectionMatrix();
+                                renderer.setSize(container.clientWidth, container.clientHeight);
+                            });
+                        })();
+                    </script>
+
                     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
                     <script>
                         (function() {
