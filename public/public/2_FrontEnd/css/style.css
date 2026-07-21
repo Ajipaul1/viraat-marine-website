@@ -2786,7 +2786,7 @@ a.pp_close {
 }/*# sourceMappingURL=style.css.map */
 
 /* ========================================================================== */
-/* PRODUCTS DROPDOWN NAVIGATION STYLING                                       */
+/* PRODUCTS DROPDOWN NAVIGATION STYLING (MODERN WHITE 2-COLUMN MEGA MENU)     */
 /* ========================================================================== */
 .dropdown-item-wrapper {
   position: relative;
@@ -2812,20 +2812,24 @@ a.pp_close {
 .sub-dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
-  min-width: 250px;
-  background: rgba(9, 29, 62, 0.98);
-  border: 1px solid rgba(15, 190, 210, 0.25);
-  border-radius: 8px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-  padding: 12px 0 !important;
+  left: -50px;
+  width: 560px !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 10px;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 45px rgba(9, 29, 62, 0.18) !important;
+  padding: 16px 18px !important;
   margin-top: 10px !important;
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
   transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   z-index: 10000;
-  display: block !important;
+  max-height: 85vh;
+  overflow-y: auto;
 }
 
 .dropdown-item-wrapper:hover .sub-dropdown-menu {
@@ -2840,34 +2844,46 @@ a.pp_close {
   width: 100%;
 }
 
+/* Distinct Section Header styling */
+.sub-dropdown-menu .dropdown-header-title {
+  grid-column: 1 / -1 !important; /* Spans both columns */
+  padding: 7px 12px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.2px !important;
+  color: #091d3e !important;
+  background: #edfafa !important; /* Soft cyan brand tint */
+  border-left: 4px solid #0fbed2 !important; /* Cyan accent bar */
+  border-radius: 6px !important;
+  margin-top: 10px !important;
+  margin-bottom: 6px !important;
+}
+
+.sub-dropdown-menu li:first-child .dropdown-header-title,
+.sub-dropdown-menu .dropdown-header-title:first-child {
+  margin-top: 0 !important;
+}
+
+/* Clickable Links styling */
 .sub-dropdown-menu li a {
-  display: block !important;
-  padding: 10px 20px !important;
-  color: #e2e8f0 !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  transition: all 0.2s ease;
-  border-left: 3px solid transparent;
+  display: flex !important;
+  align-items: center;
+  padding: 8px 12px !important;
+  color: #1e293b !important; /* Dark Slate text */
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+  border-left: none !important;
+  background: transparent !important;
 }
 
 .sub-dropdown-menu li a:hover {
-  background: rgba(15, 190, 210, 0.15) !important;
-  color: var(--main-blue) !important;
-  border-left-color: var(--main-blue);
-  padding-left: 24px !important;
+  background: rgba(15, 190, 210, 0.12) !important; /* Light cyan hover effect */
+  color: #0fbed2 !important; /* Brand cyan text */
+  padding-left: 16px !important;
 }
-
-.sub-dropdown-menu .dropdown-header-title {
-  padding: 8px 20px 4px 20px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #94a3b8;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  margin-bottom: 4px;
-}
-
 /* Fleet Catalog Card Styles */
 .vessel-card {
   background: #091d3e;
