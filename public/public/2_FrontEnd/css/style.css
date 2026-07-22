@@ -2817,10 +2817,10 @@ a.pp_close {
   display: grid !important;
   grid-template-columns: 1fr 1fr;
   gap: 4px 10px;
-  background: #ffffff !important;
-  border: 1px solid #e2e8f0 !important;
+  background: #091d3e !important;
+  border: 1px solid rgba(15, 190, 210, 0.3) !important;
   border-radius: 12px !important;
-  box-shadow: 0 20px 45px rgba(9, 29, 62, 0.18) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 25px rgba(15, 190, 210, 0.15) !important;
   padding: 16px 18px !important;
   margin-top: 10px !important;
   opacity: 0;
@@ -2852,9 +2852,9 @@ a.pp_close {
   font-weight: 800 !important;
   text-transform: uppercase !important;
   letter-spacing: 1.2px !important;
-  color: #091d3e !important;
-  background: #edfafa !important; /* Soft cyan brand tint */
-  border-left: 4px solid #0fbed2 !important; /* Cyan accent bar */
+  color: #0fbed2 !important;
+  background: rgba(15, 190, 210, 0.1) !important;
+  border-left: 4px solid #0fbed2 !important;
   border-radius: 6px !important;
   margin-top: 10px !important;
   margin-bottom: 6px !important;
@@ -2870,7 +2870,7 @@ a.pp_close {
   display: flex !important;
   align-items: center;
   padding: 8px 12px !important;
-  color: #1e293b !important; /* Dark Slate text */
+  color: #e2e8f0 !important;
   font-size: 13px !important;
   font-weight: 600 !important;
   border-radius: 6px !important;
@@ -2880,8 +2880,8 @@ a.pp_close {
 }
 
 .sub-dropdown-menu li a:hover {
-  background: rgba(15, 190, 210, 0.12) !important; /* Light cyan hover effect */
-  color: #0fbed2 !important; /* Brand cyan text */
+  background: rgba(15, 190, 210, 0.18) !important;
+  color: #0fbed2 !important;
   padding-left: 16px !important;
 }
 /* Fleet Catalog Card Styles */
